@@ -1,0 +1,81 @@
+import type {PropsWithChildren} from 'react';
+import {
+  StyleSheet,
+  useColorScheme,
+  View,
+  Text,
+} from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+type SectionProps = PropsWithChildren<{
+  title: string;
+}>;
+
+function Section({children, title}: SectionProps): JSX.Element {
+  const isDarkMode = useColorScheme() === 'dark';
+  return (
+    <View style={styles.sectionContainer}>
+      <Text
+        style={[
+          styles.sectionTitle,
+          {
+            color: isDarkMode ? Colors.white : Colors.black,
+          },
+        ]}>
+        {title}
+      </Text>
+      <Text
+        style={[
+          styles.sectionDescription,
+          {
+            color: isDarkMode ? Colors.light : Colors.dark,
+          },
+        ]}>
+        {children}
+      </Text>
+    </View>
+  );
+}
+
+const styles = StyleSheet.create({
+  
+  sectionContainer: {
+    
+    marginTop: 24,
+    paddingHorizontal: 24,
+    justifyContent: 'space-around',
+  },
+  sectionTitle: {
+    fontSize: 24,
+    fontWeight: '600',
+  },
+  sectionDescription: {
+    marginTop: 8,
+    fontSize: 18,
+    fontWeight: '400',
+  },
+  backgroundImage: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  backgroundGradientUpper: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    top: 0,
+    height: 300,
+  },
+  backgroundGradientFullscreen: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "100%",
+  },
+  text:{
+    color: Colors.black,
+    fontSize: 48,
+  },
+});
+
+export {styles, Section};
