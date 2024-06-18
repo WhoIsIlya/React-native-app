@@ -1,6 +1,6 @@
 {
   "expo": {
-    "name": "news-app",
+    "name": "News App",
     "slug": "news-app",
     "version": "1.0.0",
     "orientation": "portrait",
@@ -32,6 +32,14 @@
     ],
     "experiments": {
       "typedRoutes": true
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "a829ff47-a60e-475b-92d0-7c35e6b351c8"
+      }
     }
   }
 }

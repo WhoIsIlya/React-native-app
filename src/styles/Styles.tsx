@@ -72,10 +72,44 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  text:{
+  textBlack:{
     color: Colors.black,
+    fontWeight: 'bold',
     fontSize: 48,
+    textAlign: 'center',
   },
+  textWhite:{
+    color: Colors.white,
+    fontWeight: 'bold',
+    fontSize: 48,
+    textAlign: 'center',
+  },
+  textWhiteSmall: {
+    color: Colors.white,
+    fontSize: 12,
+    textAlign: 'center',
+  },
+  textWhiteMedium: {
+    color: Colors.white,
+    fontSize: 24,
+    textAlign: 'center',
+  },
+  welcomeViewBox: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    marginBottom: '2%',
+  },
+  touchableOpacity: {
+    alignItems: 'center',
+    backgroundColor: '#244724',
+    paddingVertical: 10,
+    paddingHorizontal: '20%',
+    borderRadius: 100,
+  },
+  touchableOpacityViewBox: {
+    marginBottom: '10%',
+  }
 });
 
 export {styles, Section};

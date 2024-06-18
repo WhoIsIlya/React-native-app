@@ -23,7 +23,7 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({route}) => ({
           headerShown: false,
-          tabBarActiveTintColor: "red",
+          tabBarActiveTintColor: '#247024',
           tabBarInactiveTintColor: "gray",
           tabBarLabelStyle : {
             fontSize: 12,
@@ -81,7 +81,7 @@ export default function App() {
     return (
       <NavigationContainer>
         <Stack.Navigator
-          initialRouteName='Splash'
+          initialRouteName='Welcome'
           screenOptions={{
             headerShown: false,
           }}
