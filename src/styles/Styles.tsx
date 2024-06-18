@@ -109,7 +109,11 @@ const styles = StyleSheet.create({
   },
   touchableOpacityViewBox: {
     marginBottom: '10%',
-  }
+  },
+  container: {
+    flex: 1,
+    padding: 20,
+  },
 });
 
 export {styles, Section};

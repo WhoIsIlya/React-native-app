@@ -3,7 +3,6 @@ import React from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { useColorScheme } from "nativewind";
 import HomeScreen from "../screens/HomeScreen";
 import DiscoverScreen from "../screens/DiscoverScreen";
 import SavedScreen from "../screens/SavedScreen";
@@ -12,25 +11,32 @@ import SplashScreens from '../screens/SplashScreens';
 import WelcomeScreen from '../screens/WelcomeScreen';
 import ContentDetailsScreen from '../screens/ContentDetailsScreen';
 import { Ionicons } from "@expo/vector-icons"
+import { useColorScheme } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  const { colorScheme, toggleColorScheme} = useColorScheme();
+  const isDarkMode = useColorScheme() === 'dark';
+  const backgroundStyle = {
+    backgroundColor: isDarkMode ? '#101010' : Colors.lighter,
+    secondColor: isDarkMode ? Colors.darker : Colors.white,
+  };
+
   const TabNavigator = () => {
     return (
       <Tab.Navigator
         screenOptions={({route}) => ({
           headerShown: false,
-          tabBarActiveTintColor: '#247024',
-          tabBarInactiveTintColor: "gray",
+          tabBarActiveTintColor: isDarkMode  ? '#aaaaaa' : '#454545',
+          tabBarInactiveTintColor: isDarkMode  ? '#454545' : '#aaaaaa',
           tabBarLabelStyle : {
             fontSize: 12,
             //fontFamily: "SpaceGroteskMedium",
           },
           tabBarStyle: {
-            backgroundColor: colorScheme === "dark" ? "black" : "white",
+            backgroundColor: isDarkMode  ? "black" : "white",
           }
         })}
       >
