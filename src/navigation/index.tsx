@@ -29,15 +29,27 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({route}) => ({
           headerShown: false,
-          tabBarActiveTintColor: isDarkMode  ? '#aaaaaa' : '#454545',
-          tabBarInactiveTintColor: isDarkMode  ? '#454545' : '#aaaaaa',
+          tabBarActiveTintColor: isDarkMode  ? '#ffffff' : '#454545',
+          tabBarInactiveTintColor: isDarkMode  ? '#888888' : '#aaaaaa',
           tabBarLabelStyle : {
             fontSize: 12,
+                        
             //fontFamily: "SpaceGroteskMedium",
           },
           tabBarStyle: {
             backgroundColor: isDarkMode  ? "black" : "white",
+            borderColor: isDarkMode ? "transparent": "#dddddd",
+            position: 'absolute',
+            bottom: 25,
+            left: 20,
+            right: 20,
+            elevation: isDarkMode  ? 0 : 3,
+            borderRadius: 15,
+            height: 90,
+            paddingBottom: 15,
+            paddingTop: 15,
           }
+          
         })}
       >
         <Tab.Screen 

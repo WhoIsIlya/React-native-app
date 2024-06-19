@@ -98,22 +98,50 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'flex-end',
-    marginBottom: '2%',
+    marginBottom: '5%',
   },
   touchableOpacity: {
     alignItems: 'center',
-    backgroundColor: '#244724',
+    backgroundColor: '#004040',
     paddingVertical: 10,
     paddingHorizontal: '20%',
     borderRadius: 100,
+    textAlign: 'center',
+    alignContent: 'center',
+  },
+  touchableOpacityModal: {
+    alignItems: 'center',
+    backgroundColor: '#0070f2',
+    paddingVertical: 10,
+    paddingHorizontal: '20%',
+    borderRadius: 5,
+    textAlign: 'center',
+    alignContent: 'center',
   },
   touchableOpacityViewBox: {
-    marginBottom: '10%',
+    marginBottom: 50,
   },
   container: {
     flex: 1,
     padding: 20,
   },
+  containerHelper: {
+    borderRadius: 15,
+    paddingBottom: 15,
+  },
+  containerHelperGradient: {
+    padding: 20,
+    borderRadius: 15,
+  },
+  contentContainer: {
+    paddingTop: 25,
+    flex: 1,
+    alignItems: 'center',
+  },
+  cardInfo: {
+    padding: 20,
+    borderRadius: 15,
+  }
 });
 
 export {styles, Section};
