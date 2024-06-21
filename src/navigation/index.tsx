@@ -13,9 +13,12 @@ import ContentDetailsScreen from '../screens/ContentDetailsScreen';
 import { Ionicons } from "@expo/vector-icons"
 import { useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+
+const queryClient = new QueryClient();
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -96,7 +99,8 @@ export default function App() {
     );
   };
 
-    return (
+  return (
+    <QueryClientProvider client={queryClient}>
       <NavigationContainer>
         <Stack.Navigator
           initialRouteName='Welcome'
@@ -116,7 +120,8 @@ export default function App() {
           <Stack.Screen name="HomeTabs" component={TabNavigator}/>
         </Stack.Navigator>
       </NavigationContainer>
-    );
+    </QueryClientProvider>
+  );
 }
 
 registerRootComponent (App);

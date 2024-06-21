@@ -1,9 +1,11 @@
 import { View, Text, useColorScheme, StatusBar, StyleSheet } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
+import { useQuery } from "@tanstack/react-query";
+import { fetchBreakingNews } from "../utils/Api";
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -13,6 +15,10 @@ export default function HomeScreen() {
     oppositeColor: isDarkMode ? Colors.white : Colors.black,
     trueColor: isDarkMode ? Colors.black : Colors.white,
   };
+
+  const [breakingNews, setBreakingNews] = useState([]);
+  const [businessNews, setbusinessNews] = useState([]);
+  const [technologyNews, settechnologyNews] = useState([]);
 
   const stylesLocal = StyleSheet.create ({
     text: {
