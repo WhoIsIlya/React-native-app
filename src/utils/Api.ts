@@ -11,7 +11,7 @@ const technologyNewsUrl = `${apiBaseUrl}/top-headlines?country=ru&category=techn
 
 const discoverNewsUrl = (discover: any) => `${apiBaseUrl}/top-headlines?country=ru&category=${discover}&apiKey=${apiKey}`
 
-const  serachNewsUrl = (query: any) => `${apiBaseUrl}/top-headlines?q=${query}&apiKey=${apiKey}`
+const serachNewsUrl = (query: any) => `${apiBaseUrl}/top-headlines?q=${query}&apiKey=${apiKey}`
 
 const apiCall = async (endpoints: any, params?: any) => {
     const options = {

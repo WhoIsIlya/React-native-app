@@ -20,6 +20,13 @@ export default function HomeScreen() {
   const [businessNews, setbusinessNews] = useState([]);
   const [technologyNews, settechnologyNews] = useState([]);
 
+  //Breaking news
+
+  const { data, isLoading, isError} = useQuery({
+    queryKey: ["breakingNews"],
+    queryFn: fetchBreakingNews
+  });
+
   const stylesLocal = StyleSheet.create ({
     text: {
         color: backgroundStyle.oppositeColor,
