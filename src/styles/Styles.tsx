@@ -123,11 +123,24 @@ const styles = StyleSheet.create({
   },
   container: {
     flex: 1,
-    padding: 20,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  mainContainer: {
+    flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  mainContainerHelper: {
+    borderRadius: 15,
   },
   containerHelper: {
     borderRadius: 15,
-    paddingBottom: 15,
+
+    paddingBottom: 10,
+  },
+  scrollContainerr: {
+    padding: 20,
   },
   containerHelperGradient: {
     padding: 20,
@@ -141,7 +154,12 @@ const styles = StyleSheet.create({
   cardInfo: {
     padding: 20,
     borderRadius: 15,
-  }
+  },
+  mainView: {
+    flex: 1,
+    padding: 0,
+    flexDirection: 'column',
+  },
 });
 
 export {styles, Section};
