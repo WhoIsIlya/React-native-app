@@ -1,11 +1,12 @@
-import { View, Text, useColorScheme, StatusBar, StyleSheet } from "react-native";
-import React, { useState } from "react";
+import { View, Text, useColorScheme, StatusBar, StyleSheet, TouchableOpacity } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { useQuery } from "@tanstack/react-query";
 import { fetchBreakingNews } from "../utils/Api";
+import SnapCarousel from "../components/SnapCarousel";
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -16,17 +17,6 @@ export default function HomeScreen() {
     trueColor: isDarkMode ? Colors.black : Colors.white,
   };
 
-  const [breakingNews, setBreakingNews] = useState([]);
-  const [businessNews, setbusinessNews] = useState([]);
-  const [technologyNews, settechnologyNews] = useState([]);
-
-  //Breaking news
-
-  const { data, isLoading, isError} = useQuery({
-    queryKey: ["breakingNews"],
-    queryFn: fetchBreakingNews
-  });
-
   const stylesLocal = StyleSheet.create ({
     text: {
         color: backgroundStyle.oppositeColor,
@@ -34,7 +24,23 @@ export default function HomeScreen() {
         fontSize: 48,
         textAlign: 'center',
     }
-});
+  });
+
+  const [breakingNews, setBreakingNews] = useState([]);
+  const [businessNews, setbusinessNews] = useState([]);
+  const [technologyNews, settechnologyNews] = useState([]);
+  
+  const { data, isLoading, isSuccess, isError} = useQuery({
+    queryKey: ["breakingNews"],
+    queryFn: fetchBreakingNews,
+    placeholderData: (previousData, previousQuery) => previousData,
+  });
+
+  useEffect(() => {
+    setBreakingNews(data);
+  }, [isSuccess])
+  
+  
 
   return (
     <GestureHandlerRootView>
