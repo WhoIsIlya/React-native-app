@@ -5,14 +5,14 @@ import { styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { GestureHandlerRootView, ScrollView } from "react-native-gesture-handler";
 import { useQuery } from "@tanstack/react-query";
-import { fetchBreakingNews } from "../utils/Api";
+import { fetchBreakingNews, fetchBusinessNews } from "../utils/Api";
 import SnapCarousel from "../components/SnapCarousel";
 import Carousel from "react-native-reanimated-carousel";
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#101010' : Colors.lighter,
+    backgroundColor: isDarkMode ? '#141414' : Colors.lighter,
     secondColor: isDarkMode ? Colors.darker : Colors.white,
     oppositeColor: isDarkMode ? Colors.white : Colors.black,
     trueColor: isDarkMode ? Colors.black : Colors.white,
@@ -22,26 +22,34 @@ export default function HomeScreen() {
     text: {
         color: backgroundStyle.oppositeColor,
         fontWeight: 'bold',
-        fontSize: 48,
+        fontSize: 18,
         textAlign: 'center',
     }
   });
 
   const [breakingNews, setBreakingNews] = useState([]);
-  const [businessNews, setbusinessNews] = useState([]);
-  const [technologyNews, settechnologyNews] = useState([]);
+  const [businessNews, setBusinessNews] = useState([]);
+  const [technologyNews, setTechnologyNews] = useState([]);
   
-  const { data, isLoading, isSuccess, isError} = useQuery({
+  const { data: breakingNewsData, isLoading: isBreakingNewsLoading, isSuccess: isBreakingNewsLoadSuccess, isError: isBreakingNewsError} = useQuery({
     queryKey: ["breakingNews"],
     queryFn: fetchBreakingNews,
     placeholderData: (previousData, previousQuery) => previousData,
   });
 
   useEffect(() => {
-    setBreakingNews(data);
-  }, [isSuccess])
+    setBreakingNews(breakingNewsData);
+  }, [isBreakingNewsLoadSuccess])
   
-  
+  const { data: businessNewsData, isLoading: isBusinessNewsLoading, isSuccess: isBusinessNewsLoadSuccess, isError: isBusinessNewsError} = useQuery({
+    queryKey: ["businessNews"],
+    queryFn: fetchBusinessNews,
+    placeholderData: (previousData, previousQuery) => previousData,
+  });
+
+  useEffect(() => {
+    setBusinessNews(businessNewsData);
+  }, [isBusinessNewsLoadSuccess])
 
   return (
     <GestureHandlerRootView>
@@ -63,7 +71,17 @@ export default function HomeScreen() {
               </LinearGradient>
             </View>
           </View>
-          <SnapCarousel/>
+          {
+            isBreakingNewsLoading ? (
+              <View style={[styles.containerSkeleton]}>
+                <View style={[styles.containerHelper]}>
+                  <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}/>
+                </View>
+              </View>
+            ) : (
+              <SnapCarousel data={breakingNewsData} label={"BrakingNews"}/>
+            )
+          }
           <View style={[styles.container]}>
             <View style={[styles.containerHelper]}>
               <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}>

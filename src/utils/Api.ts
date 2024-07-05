@@ -33,7 +33,7 @@ export const fetchBreakingNews = async () => {
     return await apiCall(breakingNewsUrl);
 }
 
-export const fetchBusinessdNews = async () => {
+export const fetchBusinessNews = async () => {
     return await apiCall(businessNewsUrl);
 }
 

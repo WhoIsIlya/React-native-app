@@ -62,12 +62,19 @@ export default function WelcomeScreen() {
             <Text style={[styles.textWhiteSmall]}>Hello, and welcome</Text> 
           </View>
           <View style={[styles.touchableOpacityViewBox]}>
-            <Pressable
-              onPress={handlePresentModalPress}
-              style={[styles.touchableOpacity]}
+            <LinearGradient
+                  colors={[ isDarkMode ? 'rgba(140,140,255,1)' : 'rgba(0,0,140,0.4  )', isDarkMode ? 'rgba(255,140,140,1)' : 'rgba(140,0,0,0.4)']}
+                  style={[{borderRadius: 15}]}
+                  start={{ x: 0.0, y:0.0 }}
+                  end={{ x: 1, y: 1 }}
             >
-              <Text style={[{color: Colors.white, textAlign: 'center', fontSize: 24, fontWeight: '200'}]}>Getting started</Text>
-            </Pressable>
+              <Pressable
+                onPress={handlePresentModalPress}
+                style={[styles.touchableOpacity]}
+              >
+                <Text style={[{color: Colors.white, textAlign: 'center', fontSize: 24, fontWeight: '200'}]}>Getting started</Text>  
+              </Pressable>
+            </LinearGradient>
             <BottomSheetModal
               ref={bottomSheetModalRef}
               index={1}

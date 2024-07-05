@@ -102,10 +102,9 @@ const styles = StyleSheet.create({
   },
   touchableOpacity: {
     alignItems: 'center',
-    backgroundColor: '#004040',
     paddingVertical: 10,
     paddingHorizontal: '20%',
-    borderRadius: 100,
+    borderRadius: 15,
     textAlign: 'center',
     alignContent: 'center',
   },
@@ -120,9 +119,17 @@ const styles = StyleSheet.create({
   },
   touchableOpacityViewBox: {
     marginBottom: 50,
+    width: '100%',
+    paddingLeft: 20,
+    paddingRight: 20,
   },
   container: {
     flex: 1,
+    paddingLeft: 20,
+    paddingRight: 20,
+  },
+  containerSkeleton: {
+    paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -130,13 +137,13 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingLeft: 20,
     paddingRight: 20,
+    paddingTop: 10,
   },
   mainContainerHelper: {
     borderRadius: 15,
   },
   containerHelper: {
     borderRadius: 15,
-
     paddingBottom: 10,
   },
   scrollContainerr: {
