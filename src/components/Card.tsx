@@ -10,7 +10,7 @@ interface ItemProps {
   author: string;
 }
 
-export default function Card({ index, item }: {item: ItemProps, index: number}) {
+export default function Card({ index, item, handleClick }: {item: ItemProps, index: number, handleClick: any}) {
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
@@ -24,22 +24,24 @@ export default function Card({ index, item }: {item: ItemProps, index: number}) 
     console.log(item);
   })
   return(
-    <View
-      style={{
-        flex: 1,
-        justifyContent: 'center',
-        borderRadius: 15,
-        backgroundColor: backgroundStyle.trueColor,
-      }}
-    >
-      <Text style={{ 
-        textAlign: 'center',
-        fontSize: 15,
-        color: backgroundStyle.oppositeColor,
-        padding: 20,
-      }}>
-        {item.title.slice (0, item.title.length - item.author.length - 3)}
-      </Text>
-    </View>    
+    <TouchableWithoutFeedback onPress={handleClick}>
+      <View
+        style={{
+          height: "100%",
+          justifyContent: 'center',
+          borderRadius: 15,
+          backgroundColor: backgroundStyle.trueColor,
+        }}
+      >
+        <Text style={{ 
+          textAlign: 'center',
+          fontSize: 15,
+          color: backgroundStyle.oppositeColor,
+          padding: 20,
+        }}>
+          {item.title.slice (0, item.title.length - item.author.length - 3)}
+        </Text>
+      </View>
+    </TouchableWithoutFeedback>
   );
 }

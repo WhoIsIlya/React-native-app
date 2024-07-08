@@ -48,10 +48,10 @@ export default function SnapCarousel(data: any, label: any) {
           data={data.data.articles}
           scrollAnimationDuration={3000}
           renderItem={({ index, item }: {item: ItemProps, index: number}) => (
-            <Card item={item} index={index}/>
+            <Card item={item} index={index} handleClick={handleClick}/>
           )}
         />
-    </View>
+      </View>
     </View>
   );
 }
