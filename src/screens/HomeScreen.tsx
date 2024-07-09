@@ -8,6 +8,8 @@ import { useQuery } from "@tanstack/react-query";
 import { fetchBreakingNews, fetchBusinessNews } from "../utils/Api";
 import SnapCarousel from "../components/SnapCarousel";
 import SkeletonContent from "../components/SkeletonContent";
+import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -21,11 +23,12 @@ export default function HomeScreen() {
   const stylesLocal = StyleSheet.create ({
     text: {
         color: backgroundStyle.oppositeColor,
-        fontWeight: 'bold',
-        fontSize: 18,
+        fontSize: 13,
         textAlign: 'center',
     }
   });
+
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const [breakingNews, setBreakingNews] = useState([]);
   const [businessNews, setBusinessNews] = useState([]);
@@ -49,15 +52,24 @@ export default function HomeScreen() {
 
   useEffect(() => {
     setBusinessNews(businessNewsData);
-  }, [isBusinessNewsLoadSuccess])
+  }, [isBusinessNewsLoadSuccess]);
 
-  const renderFlatListItem = () => {
+  interface ItemProps {
+    title: string;
+    author: string;
+  }
+
+  const handleClick = (item: any) => {
+    navigation.navigate("ContentDetails", item);
+  };
+
+  const renderItem = ({item, index}: {item: ItemProps, index: number}) => {
     return (
       <View style={[styles.container]}>
-        <TouchableWithoutFeedback>
+        <TouchableWithoutFeedback onPress={() => handleClick(item)}>
           <View style={[styles.containerHelper]}>
             <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}>
-              <Text style={[stylesLocal.text]}></Text>
+              <Text style={[stylesLocal.text]}>{item.title}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -78,9 +90,13 @@ export default function HomeScreen() {
             <SkeletonContent/>
           ) : (
             <FlatList 
+              nestedScrollEnabled={true}
+              scrollEnabled={true}
               ListHeaderComponent={<SnapCarousel data={breakingNewsData} label={"BrakingNews"}/>}
               data={businessNewsData.articles}
-              renderItem={renderFlatListItem}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.title}
+              renderItem={renderItem}
             />
           )
         }

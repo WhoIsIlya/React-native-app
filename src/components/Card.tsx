@@ -11,7 +11,6 @@ interface ItemProps {
 }
 
 export default function Card({ index, item, handleClick }: {item: ItemProps, index: number, handleClick: any}) {
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#101010' : Colors.lighter,

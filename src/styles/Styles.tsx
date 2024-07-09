@@ -161,6 +161,7 @@ const styles = StyleSheet.create({
   cardInfo: {
     padding: 20,
     borderRadius: 15,
+    justifyContent: 'center',
   },
   mainView: {
     flex: 1,
