@@ -19,12 +19,9 @@ export default function Card({ index, item, handleClick }: {item: ItemProps, ind
     oppositeColor: isDarkMode ? Colors.white : Colors.black,
     trueColor: isDarkMode ? Colors.black : Colors.white,
   };
-  
-  useEffect (() => {
-    console.log(item);
-  })
+
   return(
-    <TouchableWithoutFeedback onPress={handleClick}>
+    <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <View
         style={{
           height: "100%",
