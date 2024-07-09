@@ -74,7 +74,7 @@ export default function HomeScreen() {
           translucent={true}
         />
         {
-          isBreakingNewsLoading && isBusinessNewsLoading ? (
+          isBreakingNewsLoading || isBusinessNewsLoading ? (
             <SkeletonContent/>
           ) : (
             <FlatList 
