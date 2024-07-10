@@ -1,7 +1,12 @@
 import { View, Text } from "react-native";
 import React from "react";
 
-export default function ContentDetailsScreen({item, index}: {item: any, index: number}) {
+interface ItemProps {
+  title: string;
+  author: string;
+}
+
+export default function ContentDetailsScreen({item, index}: {item: ItemProps, index: number}) {
   return (
     <View>
       <Text>ContentDetailsScreen</Text>

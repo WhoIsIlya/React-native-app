@@ -10,7 +10,7 @@ interface ItemProps {
   author: string;
 }
 
-export default function Card({ index, item, handleClick }: {item: ItemProps, index: number, handleClick: any}) {
+export default function Card({ index, item, handleClick }: {item: ItemProps, index: number, handleClick: (item: ItemProps) => void}) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#101010' : Colors.lighter,

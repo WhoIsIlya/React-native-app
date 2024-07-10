@@ -11,7 +11,7 @@ interface ItemProps {
   author: string;
 }
 
-export default function SnapCarousel({data, label}: {data: any, label: any}) {
+export default function SnapCarousel({data, label}: {data: any, label: string}) {
   
   const ref = React.useRef<ICarouselInstance>(null);
   const isDarkMode = useColorScheme() === 'dark';
@@ -23,7 +23,7 @@ export default function SnapCarousel({data, label}: {data: any, label: any}) {
   };
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     
-  const handleClick = (item: any) => {
+  const handleClick = (item: ItemProps) => {
     navigation.navigate("ContentDetails", item);
   };
 

@@ -60,7 +60,7 @@ export default function HomeScreen() {
     author: string;
   }
 
-  const handleClick = (item: any) => {
+  const handleClick = (item: ItemProps) => {
     navigation.navigate("ContentDetails", item);
   };
 
