@@ -10,6 +10,7 @@ import SnapCarousel from "../components/SnapCarousel";
 import SkeletonContent from "../components/SkeletonContent";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import Footer from "../components/Footer";
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -93,6 +94,7 @@ export default function HomeScreen() {
               nestedScrollEnabled={true}
               scrollEnabled={true}
               ListHeaderComponent={<SnapCarousel data={breakingNewsData} label={"BrakingNews"}/>}
+              ListFooterComponent={<Footer/>}
               data={businessNewsData.articles}
               showsVerticalScrollIndicator={false}
               keyExtractor={item => item.title}

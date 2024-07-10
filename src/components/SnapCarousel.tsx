@@ -40,7 +40,7 @@ export default function SnapCarousel({data, label}: {data: any, label: any}) {
       fontWeight: 'bold',
       fontSize: 18,
       textAlign: 'center',
-  }
+    }
   });
   
   return(
