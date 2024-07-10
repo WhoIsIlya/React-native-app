@@ -56,12 +56,15 @@ export default function HomeScreen() {
   }, [isBusinessNewsLoadSuccess]);
 
   interface ItemProps {
-    title: string;
     author: string;
+    content: string;
+    description: string;
+    publishedAt: string;
+    title: string;
   }
 
   const handleClick = (item: ItemProps) => {
-    navigation.navigate("ContentDetails", item);
+    navigation.navigate("ContentDetails", {item});
   };
 
   const renderItem = ({item, index}: {item: ItemProps, index: number}) => {

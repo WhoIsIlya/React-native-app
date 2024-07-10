@@ -6,8 +6,11 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 
 interface ItemProps {
-  title: string;
   author: string;
+  content: string;
+  description: string;
+  publishedAt: string;
+  title: string;
 }
 
 export default function Card({ index, item, handleClick }: {item: ItemProps, index: number, handleClick: (item: ItemProps) => void}) {

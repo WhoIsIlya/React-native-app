@@ -7,8 +7,11 @@ import Card from "./Card";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 
 interface ItemProps {
-  title: string;
   author: string;
+  content: string;
+  description: string;
+  publishedAt: string;
+  title: string;
 }
 
 export default function SnapCarousel({data, label}: {data: any, label: string}) {
@@ -24,7 +27,7 @@ export default function SnapCarousel({data, label}: {data: any, label: string}) 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     
   const handleClick = (item: ItemProps) => {
-    navigation.navigate("ContentDetails", item);
+    navigation.navigate("ContentDetails", {item});
   };
 
   const width = Dimensions.get('window').width;
