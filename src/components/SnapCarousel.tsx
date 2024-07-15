@@ -5,14 +5,7 @@ import { Text, View, StyleSheet, Dimensions, useColorScheme } from "react-native
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import Card from "./Card";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-
-interface ItemProps {
-  author: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  title: string;
-}
+import { DataProps } from "../constants/DataInterface";
 
 export default function SnapCarousel({data, label}: {data: any, label: string}) {
   
@@ -26,7 +19,7 @@ export default function SnapCarousel({data, label}: {data: any, label: string}) 
   };
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     
-  const handleClick = (item: ItemProps) => {
+  const handleClick = (item: DataProps) => {
     navigation.navigate("ContentDetails", {item});
   };
 
@@ -63,9 +56,9 @@ export default function SnapCarousel({data, label}: {data: any, label: string}) 
               parallaxAdjacentItemScale: 0.9,
             }}
             autoPlayInterval={5000}
-            data={data.articles}
+            data={data}
             scrollAnimationDuration={500}
-            renderItem={({ index, item }: {item: ItemProps, index: number}) => (
+            renderItem={({ index, item }: {item: DataProps, index: number}) => (
               <Card item={item} index={index} handleClick={handleClick}/>
             )}
           />

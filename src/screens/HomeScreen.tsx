@@ -1,4 +1,4 @@
-import { View, Text, useColorScheme, StatusBar, StyleSheet, TouchableOpacity } from "react-native";
+import { View, Text, useColorScheme, StatusBar, StyleSheet, TouchableOpacity, RefreshControl } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { styles } from "../styles/Styles";
@@ -11,6 +11,8 @@ import SkeletonContent from "../components/SkeletonContent";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Footer from "../components/Footer";
+import { database } from "../utils/DatabaseProvider";
+import { DataProps } from "../constants/DataInterface";
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -31,49 +33,41 @@ export default function HomeScreen() {
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
-  const [breakingNews, setBreakingNews] = useState([]);
-  const [businessNews, setBusinessNews] = useState([]);
-  const [technologyNews, setTechnologyNews] = useState([]);
-  
-  const { data: breakingNewsData, isLoading: isBreakingNewsLoading, isSuccess: isBreakingNewsLoadSuccess, isError: isBreakingNewsError} = useQuery({
-    queryKey: ["breakingNews"],
-    queryFn: fetchBreakingNews,
-    placeholderData: (previousData, previousQuery) => previousData,
-  });
+  const [flatListData, setFlatListData] = useState<any>();
 
   useEffect(() => {
-    setBreakingNews(breakingNewsData);
-  }, [isBreakingNewsLoadSuccess])
-  
-  const { data: businessNewsData, isLoading: isBusinessNewsLoading, isSuccess: isBusinessNewsLoadSuccess, isError: isBusinessNewsError} = useQuery({
-    queryKey: ["businessNews"],
-    queryFn: fetchBusinessNews,
-    placeholderData: (previousData, previousQuery) => previousData,
-  });
+    const getFlatListData = async () => {
+      try {
+        const { data: flatListData, error, status } = await database.from('todos').select('id, articles, image_url').limit(20).order('id', { ascending: false });
 
-  useEffect(() => {
-    setBusinessNews(businessNewsData);
-  }, [isBusinessNewsLoadSuccess]);
+        if (error) {
+          console.error('Error fetching todos:', error.message);
+          return;
+        }
 
-  interface ItemProps {
-    author: string;
-    content: string;
-    description: string;
-    publishedAt: string;
-    title: string;
-  }
+        if (flatListData && flatListData.length > 0) {
+          setFlatListData(flatListData);
+          console.log(flatListData);
+        }
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
+    };
 
-  const handleClick = (item: ItemProps) => {
+    getFlatListData();
+  }, []);
+
+  const handleClick = (item: DataProps) => {
     navigation.navigate("ContentDetails", {item});
   };
 
-  const renderItem = ({item, index}: {item: ItemProps, index: number}) => {
+  const renderItem = ({item, index}: {item: DataProps, index: number}) => {
     return (
       <View style={[styles.container]}>
         <TouchableWithoutFeedback onPress={() => handleClick(item)}>
           <View style={[styles.containerHelper]}>
             <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}>
-              <Text style={[stylesLocal.text]}>{item.title}</Text>
+              <Text style={[stylesLocal.text]}>{item.articles}</Text>
             </View>
           </View>
         </TouchableWithoutFeedback>
@@ -90,20 +84,20 @@ export default function HomeScreen() {
           translucent={true}
         />
         {
-          isBreakingNewsLoading || isBusinessNewsLoading ? (
+          !flatListData ? (
             <SkeletonContent/>
           ) : (
             <FlatList 
               nestedScrollEnabled={true}
               scrollEnabled={true}
-              ListHeaderComponent={<SnapCarousel data={breakingNewsData} label={"BrakingNews"}/>}
+              ListHeaderComponent={<SnapCarousel data={flatListData} label={"BrakingNews"}/>}
               ListFooterComponent={<Footer/>}
-              data={businessNewsData.articles}
+              data={flatListData}
               showsVerticalScrollIndicator={false}
-              keyExtractor={item => item.title}
+              keyExtractor={item => item.articles}
               renderItem={renderItem}
             />
-          )
+          ) 
         }
       </View>   
     </GestureHandlerRootView>

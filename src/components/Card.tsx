@@ -4,16 +4,9 @@ import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
+import { DataProps } from "../constants/DataInterface";
 
-interface ItemProps {
-  author: string;
-  content: string;
-  description: string;
-  publishedAt: string;
-  title: string;
-}
-
-export default function Card({ index, item, handleClick }: {item: ItemProps, index: number, handleClick: (item: ItemProps) => void}) {
+export default function Card({ index, item, handleClick }: {item: DataProps, index: number, handleClick: (item: DataProps) => void}) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#101010' : Colors.lighter,
@@ -38,7 +31,7 @@ export default function Card({ index, item, handleClick }: {item: ItemProps, ind
           color: backgroundStyle.oppositeColor,
           padding: 20,
         }}>
-          {item.title.slice (0, item.title.length - item.author.length - 3)}
+          {item.articles}
         </Text>
       </View>
     </TouchableWithoutFeedback>
