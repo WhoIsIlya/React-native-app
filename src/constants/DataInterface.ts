@@ -5,4 +5,5 @@ export interface DataProps {
     text: string;
     source_url: string;
     image_url: string;
+    source_name: string;
   }

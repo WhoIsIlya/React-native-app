@@ -32,29 +32,56 @@ export default function HomeScreen() {
   });
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-
+  const [carouselData, setCarouselData] = useState<any>();
   const [flatListData, setFlatListData] = useState<any>();
 
   useEffect(() => {
-    const getFlatListData = async () => {
+    const getCarouselData = async () => {
       try {
-        const { data: flatListData, error, status } = await database.from('todos').select('id, articles, image_url').limit(20).order('id', { ascending: false });
+        const { data: carouselData, error, status } = await database
+          .from('todos')
+          .select('id, articles, image_url, source_name')
+          .eq('is_carosel_item', true)
+          .limit(5)
+          .order('id', { ascending: false });
 
         if (error) {
           console.error('Error fetching todos:', error.message);
           return;
         }
-
-        if (flatListData && flatListData.length > 0) {
-          setFlatListData(flatListData);
-          console.log(flatListData);
+        
+        if (carouselData && carouselData.length > 0) {
+          setCarouselData(carouselData);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
       }
     };
 
-    getFlatListData();
+    const getFlatListData = async () => {
+      try {
+        const { data: flatListData, error, status } = await database
+          .from('todos')
+          .select('id, articles, image_url, source_name')
+          .eq('is_carosel_item', false)
+          .limit(20)
+          .order('id', { ascending: false });
+
+        if (error) {
+          console.error('Error fetching todos:', error.message);
+          return;
+        }
+        
+        if (flatListData && flatListData.length > 0) {
+          setFlatListData(flatListData);
+        }
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
+  };
+
+  getCarouselData();
+  getFlatListData();
   }, []);
 
   const handleClick = (item: DataProps) => {
@@ -90,7 +117,7 @@ export default function HomeScreen() {
             <FlatList 
               nestedScrollEnabled={true}
               scrollEnabled={true}
-              ListHeaderComponent={<SnapCarousel data={flatListData} label={"BrakingNews"}/>}
+              ListHeaderComponent={<SnapCarousel data={carouselData} label={"BrakingNews"}/>}
               ListFooterComponent={<Footer/>}
               data={flatListData}
               showsVerticalScrollIndicator={false}

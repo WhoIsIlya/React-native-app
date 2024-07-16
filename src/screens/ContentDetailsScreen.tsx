@@ -58,7 +58,6 @@ export default function ContentDetailsScreen() {
 
         if (flatListData && flatListData.length > 0) {
           setFlatListData(flatListData);
-          console.log(flatListData);
         }
       } catch (error) {
         console.error('Error fetching todos:', error);
