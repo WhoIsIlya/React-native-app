@@ -13,12 +13,9 @@ import ContentDetailsScreen from '../screens/ContentDetailsScreen';
 import { Ionicons } from "@expo/vector-icons"
 import { useColorScheme } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
-
-const queryClient = new QueryClient();
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -100,27 +97,25 @@ export default function App() {
   };
 
   return (
-    <QueryClientProvider client={queryClient}>
-      <NavigationContainer>
-        <Stack.Navigator
-          initialRouteName='Welcome'
-          screenOptions={{
-            headerShown: false,
-          }}
-        >
-          <Stack.Screen name="Splash" component={SplashScreens}/>
-          <Stack.Screen name="Welcome" component={WelcomeScreen}/>
-          <Stack.Screen name="Search" component={SearchScreen}/>
-          <Stack.Screen 
-            name="ContentDetails" 
-            component={ContentDetailsScreen}
-            options={{animation: "slide_from_bottom"}}
-          />
+    <NavigationContainer>
+      <Stack.Navigator
+        initialRouteName='Welcome'
+        screenOptions={{
+          headerShown: false,
+        }}
+      >
+        <Stack.Screen name="Splash" component={SplashScreens}/>
+        <Stack.Screen name="Welcome" component={WelcomeScreen}/>
+        <Stack.Screen name="Search" component={SearchScreen}/>
+        <Stack.Screen 
+          name="ContentDetails" 
+          component={ContentDetailsScreen}
+          options={{animation: "slide_from_bottom"}}
+        />
 
-          <Stack.Screen name="HomeTabs" component={TabNavigator}/>
-        </Stack.Navigator>
-      </NavigationContainer>
-    </QueryClientProvider>
+        <Stack.Screen name="HomeTabs" component={TabNavigator}/>
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
 

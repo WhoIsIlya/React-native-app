@@ -1,9 +1,8 @@
-import { View, Text, Alert, ActivityIndicator, Dimensions, StyleSheet, useColorScheme, FlatList, StatusBar } from "react-native";
+import { View, Text, ActivityIndicator, Dimensions, StyleSheet, useColorScheme, FlatList, StatusBar } from "react-native";
 import React, { useEffect, useState } from "react";
 import { ParamListBase, useNavigation, useRoute } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { RouteProp } from '@react-navigation/native';
-import { WebView } from "react-native-webview";
 import { DataProps } from "../constants/DataInterface";
 import { database } from "../utils/DatabaseProvider";
 import { styles } from "../styles/Styles";

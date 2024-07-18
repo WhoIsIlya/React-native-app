@@ -4,8 +4,6 @@ import { Colors } from "react-native/Libraries/NewAppScreen";
 import { styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
 import { FlatList, GestureHandlerRootView, ScrollView, TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { useQuery } from "@tanstack/react-query";
-import { fetchBreakingNews, fetchBusinessNews } from "../utils/Api";
 import SnapCarousel from "../components/SnapCarousel";
 import SkeletonContent from "../components/SkeletonContent";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
