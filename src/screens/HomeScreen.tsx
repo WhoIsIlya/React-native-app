@@ -1,5 +1,5 @@
 import { View, Text, useColorScheme, StatusBar, StyleSheet, TouchableOpacity, RefreshControl } from "react-native";
-import React, { useEffect, useState } from "react";
+import React, { SetStateAction, useEffect, useState } from "react";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { styles } from "../styles/Styles";
 import { LinearGradient } from "expo-linear-gradient";
@@ -33,53 +33,53 @@ export default function HomeScreen() {
   const [carouselData, setCarouselData] = useState<any>();
   const [flatListData, setFlatListData] = useState<any>();
 
-  useEffect(() => {
-    const getCarouselData = async () => {
-      try {
-        const { data: carouselData, error, status } = await database
-          .from('todos')
-          .select('id, articles, image_url, source_name')
-          .eq('is_carosel_item', true)
-          .limit(5)
-          .order('id', { ascending: false });
+  const getCarouselData = async () => {
+    try {
+      const { data: carouselData, error, status } = await database
+        .from('todos')
+        .select('id, articles, image_url, source_name')
+        .eq('is_carosel_item', true)
+        .limit(5)
+        .order('id', { ascending: false });
 
-        if (error) {
-          console.error('Error fetching todos:', error.message);
-          return;
-        }
-        
-        if (carouselData && carouselData.length > 0) {
-          setCarouselData(carouselData);
-        }
-      } catch (error) {
-        console.error('Error fetching todos:', error);
+      if (error) {
+        console.error('Error fetching todos:', error.message);
+        return;
       }
-    };
-
-    const getFlatListData = async () => {
-      try {
-        const { data: flatListData, error, status } = await database
-          .from('todos')
-          .select('id, articles, image_url, source_name')
-          .eq('is_carosel_item', false)
-          .limit(20)
-          .order('id', { ascending: false });
-
-        if (error) {
-          console.error('Error fetching todos:', error.message);
-          return;
-        }
-        
-        if (flatListData && flatListData.length > 0) {
-          setFlatListData(flatListData);
-        }
-      } catch (error) {
-        console.error('Error fetching todos:', error);
+      
+      if (carouselData && carouselData.length > 0) {
+        setCarouselData(carouselData);
       }
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
   };
 
-  getCarouselData();
-  getFlatListData();
+  const getFlatListData = async () => {
+    try {
+      const { data: flatListData, error, status } = await database
+        .from('todos')
+        .select('id, articles, image_url, source_name')
+        .eq('is_carosel_item', false)
+        .limit(20)
+        .order('id', { ascending: false });
+
+      if (error) {
+        console.error('Error fetching todos:', error.message);
+        return;
+      }
+      
+      if (flatListData && flatListData.length > 0) {
+        setFlatListData(flatListData);
+      }
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+};
+
+  useEffect(() => {
+    getCarouselData();
+    getFlatListData();
   }, []);
 
   const handleClick = (item: DataProps) => {

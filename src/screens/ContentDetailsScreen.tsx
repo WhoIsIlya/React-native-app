@@ -42,27 +42,27 @@ export default function ContentDetailsScreen() {
 
   const [flatListData, setFlatListData] = useState<any>();
 
-  useEffect(() => {
-    const getFlatListData = async () => {
-      try {
-        const { data: flatListData, error, status } = await database
-          .from('todos')
-          .select()
-          .eq('id', item.params.item.id)
+  const getFlatListData = async () => {
+    try {
+      const { data: flatListData, error, status } = await database
+        .from('todos')
+        .select()
+        .eq('id', item.params.item.id)
 
-        if (error) {
-          console.error('Error fetching todos:', error.message);
-          return;
-        }
-
-        if (flatListData && flatListData.length > 0) {
-          setFlatListData(flatListData);
-        }
-      } catch (error) {
-        console.error('Error fetching todos:', error);
+      if (error) {
+        console.error('Error fetching todos:', error.message);
+        return;
       }
-    };
 
+      if (flatListData && flatListData.length > 0) {
+        setFlatListData(flatListData);
+      }
+    } catch (error) {
+      console.error('Error fetching todos:', error);
+    }
+  };
+
+  useEffect(() => {
     getFlatListData();
   }, []);
 
