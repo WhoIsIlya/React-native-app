@@ -20,7 +20,8 @@ export default function SearchScreen() {
     ]}>
       <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={backgroundStyle.backgroundColor}
+          backgroundColor={"transparent"}
+          translucent={true}
         />
       <Text style={[{color: isDarkMode ? Colors.white : Colors.black}]}>SearchScreen</Text>
     </View>  

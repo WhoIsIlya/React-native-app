@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { View, Text, useColorScheme, Image, Dimensions } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { DataProps } from "../constants/DataInterface";
 import { LinearGradient } from "expo-linear-gradient";
 

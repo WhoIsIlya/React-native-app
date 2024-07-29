@@ -1,35 +1,22 @@
-import { View, Text, useColorScheme, StatusBar, StyleSheet, TouchableOpacity, RefreshControl } from "react-native";
-import React, { SetStateAction, useEffect, useState } from "react";
+import { View, useColorScheme, StatusBar } from "react-native";
+import React, { useEffect, useState } from "react";
 import { Colors } from "react-native/Libraries/NewAppScreen";
-import { styles } from "../styles/Styles";
-import { LinearGradient } from "expo-linear-gradient";
-import { FlatList, GestureHandlerRootView, ScrollView, TouchableWithoutFeedback } from "react-native-gesture-handler";
+import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
 import SnapCarousel from "../components/SnapCarousel";
 import SkeletonContent from "../components/SkeletonContent";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import Footer from "../components/Footer";
+import RenderCardItem from "../components/SecondaryCard";
 import { database } from "../utils/DatabaseProvider";
 import { DataProps } from "../constants/DataInterface";
+import { styles } from "../styles/Styles";
+
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     backgroundColor: isDarkMode ? '#141414' : Colors.lighter,
-    secondColor: isDarkMode ? Colors.darker : Colors.white,
-    oppositeColor: isDarkMode ? Colors.white : Colors.black,
-    trueColor: isDarkMode ? Colors.black : Colors.white,
   };
 
-  const stylesLocal = StyleSheet.create ({
-    text: {
-        color: backgroundStyle.oppositeColor,
-        fontSize: 13,
-        textAlign: 'center',
-    }
-  });
-
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const [carouselData, setCarouselData] = useState<any>();
   const [flatListData, setFlatListData] = useState<any>();
 
@@ -82,21 +69,9 @@ export default function HomeScreen() {
     getFlatListData();
   }, []);
 
-  const handleClick = (item: DataProps) => {
-    navigation.navigate("ContentDetails", {item});
-  };
-
   const renderItem = ({item, index}: {item: DataProps, index: number}) => {
-    return (
-      <View style={[styles.container]}>
-        <TouchableWithoutFeedback onPress={() => handleClick(item)}>
-          <View style={[styles.containerHelper]}>
-            <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}>
-              <Text style={[stylesLocal.text]}>{item.articles}</Text>
-            </View>
-          </View>
-        </TouchableWithoutFeedback>
-      </View>
+    return(
+      <RenderCardItem item={item}/>
     )
   }
 
@@ -112,7 +87,7 @@ export default function HomeScreen() {
           !flatListData ? (
             <SkeletonContent/>
           ) : (
-            <FlatList 
+            <FlatList
               nestedScrollEnabled={true}
               scrollEnabled={true}
               ListHeaderComponent={<SnapCarousel data={carouselData} label={"BrakingNews"}/>}

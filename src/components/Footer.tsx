@@ -14,7 +14,7 @@ export default function Footer() {
   const localStyles = StyleSheet.create({
     footer: {
       flex: 1,
-      minHeight: 150,
+      paddingBottom: 10,
     },
     text: {
       color: backgroundStyle.oppositeColor,

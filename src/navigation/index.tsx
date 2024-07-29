@@ -19,10 +19,6 @@ const Stack = createNativeStackNavigator();
 
 export default function App() {
   const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#101010' : Colors.lighter,
-    secondColor: isDarkMode ? Colors.darker : Colors.white,
-  };
 
   const TabNavigator = () => {
     return (
@@ -31,25 +27,13 @@ export default function App() {
           headerShown: false,
           tabBarActiveTintColor: isDarkMode  ? '#ffffff' : '#454545',
           tabBarInactiveTintColor: isDarkMode  ? '#888888' : '#aaaaaa',
-          tabBarLabelStyle : {
-            fontSize: 12,
-                        
-            //fontFamily: "SpaceGroteskMedium",
-          },
+          tabBarShowLabel: false,
           tabBarStyle: {
             backgroundColor: isDarkMode  ? "black" : "white",
-            borderColor: isDarkMode ? "transparent": "#dddddd",
-            position: 'absolute',
-            bottom: 25,
-            left: 20,
-            right: 20,
+            borderColor: isDarkMode ? "#444444": "#dddddd",
             elevation: isDarkMode  ? 0 : 3,
-            borderRadius: 15,
-            height: 90,
-            paddingBottom: 15,
-            paddingTop: 15,
-          }
-          
+            height: 50,
+          },  
         })}
       >
         <Tab.Screen 
