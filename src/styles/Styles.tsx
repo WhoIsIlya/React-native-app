@@ -38,10 +38,18 @@ function Section({children, title}: SectionProps): JSX.Element {
 }
 
 const styles = StyleSheet.create({
+  flex: {
+    flex: 1,
+  },
   rootView: {
     flex: 1,
     padding: 0,
     flexDirection: 'column',
+  },
+  homeScreenText: {
+    fontSize: 20, 
+    textAlign: 'left', 
+    fontWeight: 200,
   },
   sectionContainer: {
     marginTop: 24,
