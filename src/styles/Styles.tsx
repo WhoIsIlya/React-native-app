@@ -38,9 +38,12 @@ function Section({children, title}: SectionProps): JSX.Element {
 }
 
 const styles = StyleSheet.create({
-  
+  rootView: {
+    flex: 1,
+    padding: 0,
+    flexDirection: 'column',
+  },
   sectionContainer: {
-    
     marginTop: 24,
     paddingHorizontal: 24,
     justifyContent: 'space-around',
@@ -161,11 +164,6 @@ const styles = StyleSheet.create({
   cardInfo: {
     borderRadius: 15,
     justifyContent: 'center',
-  },
-  mainView: {
-    flex: 1,
-    padding: 0,
-    flexDirection: 'column',
   },
 });
 

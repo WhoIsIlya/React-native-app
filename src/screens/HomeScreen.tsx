@@ -1,6 +1,6 @@
 import { View, useColorScheme, StatusBar } from "react-native";
 import React, { useEffect, useState } from "react";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "../constants/Colors";
 import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
 import SnapCarousel from "../components/SnapCarousel";
 import SkeletonContent from "../components/SkeletonContent";
@@ -14,7 +14,7 @@ import { styles } from "../styles/Styles";
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#141414' : Colors.lighter,
+    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
   };
 
   const [carouselData, setCarouselData] = useState<any>();
@@ -77,7 +77,7 @@ export default function HomeScreen() {
 
   return (
     <GestureHandlerRootView>
-      <View style={[ styles.mainView, {backgroundColor: backgroundStyle.backgroundColor}]}>
+      <View style={[ styles.rootView, {backgroundColor: backgroundStyle.backgroundColor}]}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={"transparent"}

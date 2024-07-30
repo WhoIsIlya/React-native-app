@@ -12,7 +12,7 @@ import WelcomeScreen from '../screens/WelcomeScreen';
 import ContentDetailsScreen from '../screens/ContentDetailsScreen';
 import { Ionicons } from "@expo/vector-icons"
 import { useColorScheme } from 'react-native';
-import { Colors } from 'react-native/Libraries/NewAppScreen';
+import { Colors } from '../constants/Colors';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -25,12 +25,12 @@ export default function App() {
       <Tab.Navigator
         screenOptions={({route}) => ({
           headerShown: false,
-          tabBarActiveTintColor: isDarkMode  ? '#ffffff' : '#454545',
-          tabBarInactiveTintColor: isDarkMode  ? '#888888' : '#aaaaaa',
+          tabBarActiveTintColor: isDarkMode  ? Colors.dark.tabIconSelected : Colors.light.tabIconSelected,
+          tabBarInactiveTintColor: isDarkMode  ? Colors.dark.tabIconDefault : Colors.light.tabIconDefault,
           tabBarShowLabel: false,
           tabBarStyle: {
-            backgroundColor: isDarkMode  ? "black" : "white",
-            borderColor: isDarkMode ? "#444444": "#dddddd",
+            backgroundColor: isDarkMode  ? Colors.dark.tabBarBackgroundColor : Colors.light.tabBarBackgroundColor,
+            borderColor: isDarkMode ? Colors.dark.tabBarBorderColor: Colors.light.tabBarBackgroundColor,
             elevation: isDarkMode  ? 0 : 3,
             height: 50,
           },  
