@@ -5,7 +5,7 @@ import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
 import SnapCarousel from "../components/SnapCarousel";
 import SkeletonContent from "../components/SkeletonContent";
 import Footer from "../components/Footer";
-import RenderCardItem from "../components/SecondaryCard";
+import FlatListCard from '../components/FlatListCard'
 import { database } from "../utils/DatabaseProvider";
 import { DataProps } from "../constants/DataInterface";
 import { styles } from "../styles/Styles";
@@ -71,7 +71,7 @@ export default function HomeScreen() {
 
   const renderItem = ({item, index}: {item: DataProps, index: number}) => {
     return(
-      <RenderCardItem item={item}/>
+      <FlatListCard item={item}/>
     )
   }
 
@@ -96,6 +96,7 @@ export default function HomeScreen() {
               showsVerticalScrollIndicator={false}
               keyExtractor={item => item.articles}
               renderItem={renderItem}
+              horizontal={false}
             />
           ) 
         }

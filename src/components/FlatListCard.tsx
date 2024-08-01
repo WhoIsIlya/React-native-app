@@ -6,7 +6,7 @@ import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function RenderCardItem ({item, index}: {item: DataProps, index?: number}) {
+export default function FlatListCard ({item, index}: {item: DataProps, index?: number}) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     trueColor: isDarkMode ? Colors.black : Colors.white,
@@ -33,7 +33,7 @@ export default function RenderCardItem ({item, index}: {item: DataProps, index?:
                 justifyContent: 'center',
                 borderRadius: 15,
               }}
-              blurRadius={5}
+              blurRadius = {item.image_url ? 0 : 5}
             />
             <LinearGradient
               colors={[isDarkMode ? "transparent" : "transparent", isDarkMode ? "rgba(20,20,20,1)" : "rgba(0,0,0, 0.6)"]}
@@ -56,6 +56,16 @@ export default function RenderCardItem ({item, index}: {item: DataProps, index?:
               position: 'absolute',
             }}>
               {item.articles}
+            </Text>
+            <Text style={{ 
+              textAlign: 'left',
+              fontSize: 8,
+              color: "#888888",
+              paddingHorizontal: 20,
+              paddingBottom: 10,
+              position: 'absolute',
+            }}>
+              {item.source_name}
             </Text>
           </View>
         </View>

@@ -1,18 +1,15 @@
 import React from "react";
 import { View, Text, useColorScheme, Image, Dimensions } from "react-native";
 import { TouchableWithoutFeedback } from "react-native-gesture-handler";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "../constants/Colors";
 import { DataProps } from "../constants/DataInterface";
 import { LinearGradient } from "expo-linear-gradient";
+import { styles } from "../styles/Styles";
 
-export default function Card({ index, item, handleClick }: {item: DataProps, index: number, handleClick: (item: DataProps) => void}) {
+export default function CarouselCard({ index, item, handleClick }: {item: DataProps, index: number, handleClick: (item: DataProps) => void}) {
   const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#101010' : Colors.lighter,
-    secondColor: isDarkMode ? Colors.darker : Colors.white,
-    oppositeColor: isDarkMode ? Colors.white : Colors.black,
-    oppositeSecondColor: isDarkMode ? '#777777' : '#333333',
-    trueColor: isDarkMode ? Colors.black : Colors.white,
+  const colorStyle = {
+    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
   };
 
   const width = Dimensions.get('window').width;
@@ -20,12 +17,7 @@ export default function Card({ index, item, handleClick }: {item: DataProps, ind
   return(
     <TouchableWithoutFeedback onPress={() => handleClick(item)}>
       <View
-        style={{
-          height: "100%",
-          justifyContent: 'flex-end',
-          borderRadius: 15,
-          backgroundColor: backgroundStyle.trueColor,
-        }}
+        style={[styles.cardStyle, {backgroundColor: colorStyle.backgroundColor}]}
       >
         <Image
           source={{
@@ -66,7 +58,7 @@ export default function Card({ index, item, handleClick }: {item: DataProps, ind
         <Text style={{ 
           textAlign: 'left',
           fontSize: 15,
-          color: Colors.white,
+          color: "#ffffff",
           paddingHorizontal: 20,
           paddingBottom: 20,
           position: 'absolute',

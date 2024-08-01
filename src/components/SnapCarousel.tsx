@@ -3,7 +3,7 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, View, StyleSheet, Dimensions, useColorScheme } from "react-native";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
-import Card from "./Card";
+import CarouselCard from "./CarouselCard";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { DataProps } from "../constants/DataInterface";
 
@@ -59,7 +59,7 @@ export default function SnapCarousel({data, label}: {data: any, label: string}) 
             data={data}
             scrollAnimationDuration={500}
             renderItem={({ index, item }: {item: DataProps, index: number}) => (
-              <Card item={item} index={index} handleClick={handleClick}/>
+              <CarouselCard item={item} index={index} handleClick={handleClick}/>
             )}
           />
         </View>
