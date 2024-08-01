@@ -29,8 +29,8 @@ export default function App() {
           tabBarInactiveTintColor: isDarkMode  ? Colors.dark.tabIconDefault : Colors.light.tabIconDefault,
           tabBarShowLabel: false,
           tabBarStyle: {
-            backgroundColor: isDarkMode  ? Colors.dark.tabBarBackgroundColor : Colors.light.tabBarBackgroundColor,
-            borderColor: isDarkMode ? Colors.dark.tabBarBorderColor: Colors.light.tabBarBackgroundColor,
+            backgroundColor: isDarkMode  ? Colors.dark.tabBarBackgroundColor : Colors.light.tabBarBackground,
+            borderColor: isDarkMode ? Colors.dark.tabBarBorderColor: Colors.light.tabBarBackground,
             elevation: isDarkMode  ? 0 : 3,
             height: 50,
           },  

@@ -10,17 +10,17 @@ const darkGray = '#444444'
 
 export const Colors = {
   light: {
-    text: '#11181C',
+    text: black,
     background: lighter,
     tint: tintColorLight,
     icon: '#687076',
     tabIconDefault: lightGray,
     tabIconSelected: darkGray,
-    tabBarBackgroundColor: white,
-    tabBarBorderColor: lightGray,
+    tabBarBackground: white,
+    tabBarBorder: lightGray,
   },
   dark: {
-    text: '#ECEDEE',
+    text: white,
     background: darker,
     tint: tintColorDark,
     icon: '#9BA1A6',

@@ -34,17 +34,20 @@ export default function WelcomeScreen() {
     <GestureHandlerRootView style={styles.flex}>
       <BottomSheetModalProvider>
         <ImageBackground
-          source={require('../../assets/images/splash.png')}
+          source={{
+            uri: 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/5b/Yoshkar-Ola_P8122176_2200.jpg/1920px-Yoshkar-Ola_P8122176_2200.jpg'
+          }}
           style={[styles.backgroundImage]}
         >
           <StatusBar
               barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              backgroundColor={isDarkMode ? 'rgba(0,0,0,0.81)' : colorStyle.backgroundColor}
+              backgroundColor={'transparent'}
+              translucent={true}
             />
           <LinearGradient 
-            colors={[ isDarkMode ? 'rgba(0,0,0,0.8)' : 'transparent', isDarkMode ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,0.4  )']}
+            colors={[ isDarkMode ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.2)', isDarkMode ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,1)']}
             style={[styles.backgroundGradientFullscreen]}
-            start={{ x: 0.5, y:0.5 }}
+            start={{ x: 0.5, y:0.4 }}
             end={{ x:0.5, y:1 }}
           />
           <View style={[styles.welcomeViewBox]}>
@@ -53,7 +56,7 @@ export default function WelcomeScreen() {
           </View>
           <View style={[styles.touchableOpacityViewBox]}>
             <LinearGradient
-                  colors={[ isDarkMode ? 'rgba(140,140,255,1)' : 'rgba(0,0,140,0.4  )', isDarkMode ? 'rgba(255,140,140,1)' : 'rgba(140,0,0,0.4)']}
+                  colors={['rgba(140,140,255,1)', 'rgba(255,140,140,1)']}
                   style={[{borderRadius: 15}]}
                   start={{ x: 0.0, y:0.0 }}
                   end={{ x: 1, y: 1 }}
@@ -62,7 +65,7 @@ export default function WelcomeScreen() {
                 onPress={handlePresentModalPress}
                 style={[styles.touchableOpacity]}
               >
-                <Text style={[styles.homeScreenText, {color: colorStyle.textColor}]}>Getting started</Text>  
+                <Text style={[styles.homeScreenText]}>Getting started</Text>  
               </Pressable>
             </LinearGradient>
             <BottomSheetModal
@@ -76,8 +79,8 @@ export default function WelcomeScreen() {
             >
               <BottomSheetView style={[styles.contentContainer, {backgroundColor: isDarkMode ? "#363636" : "#ffffff",}]}>
                 <View style={[{marginBottom:30, marginHorizontal: 10, maxWidth: 400}]}>
-                  <Text style={[styles.homeScreenText]}>Hello, the application is provided "As is", for feedback:</Text>
-                  <Text style={[styles.homeScreenText]}>worked.mail@mail.ru</Text>
+                  <Text style={[styles.homeScreenText, {color: colorStyle.textColor}]}>Hello, the application is provided "As is", for feedback:</Text>
+                  <Text style={[styles.homeScreenText, {color: colorStyle.textColor}]}>worked.mail@mail.ru</Text>
                 </View>
                 <TouchableOpacity 
                   style={[styles.touchableOpacityModal]}

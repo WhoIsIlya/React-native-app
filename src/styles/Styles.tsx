@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
     fontSize: 20, 
     textAlign: 'left', 
     fontWeight: 200,
+    color: '#ffffff',
   },
   sectionContainer: {
     marginTop: 24,
@@ -173,6 +174,11 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: 'center',
   },
+  cardStyle: {
+    height: "100%",
+    justifyContent: 'flex-end',
+    borderRadius: 15,
+  }
 });
 
 export {styles, Section};

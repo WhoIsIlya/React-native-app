@@ -7,3 +7,9 @@ export interface DataProps {
     image_url: string;
     source_name: string;
   }
+
+export type ParamList = {
+  ContentDetails: {
+    item: DataProps;
+  };
+};
