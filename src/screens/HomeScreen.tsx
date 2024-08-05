@@ -1,8 +1,8 @@
-import { View, useColorScheme, StatusBar } from "react-native";
+import { View, useColorScheme, StatusBar, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { FlatList, GestureHandlerRootView } from "react-native-gesture-handler";
-import SnapCarousel from "../components/SnapCarousel";
+import HomeScreenHeader from "../components/HomeScreenHeader";
 import SkeletonContent from "../components/SkeletonContent";
 import Footer from "../components/Footer";
 import FlatListCard from '../components/FlatListCard'
@@ -77,7 +77,7 @@ export default function HomeScreen() {
 
   return (
     <GestureHandlerRootView>
-      <View style={[ styles.rootView, {backgroundColor: backgroundStyle.backgroundColor}]}>
+      <SafeAreaView style={[ styles.rootView, {backgroundColor: backgroundStyle.backgroundColor}]}>
         <StatusBar
           barStyle={isDarkMode ? 'light-content' : 'dark-content'}
           backgroundColor={"transparent"}
@@ -90,7 +90,7 @@ export default function HomeScreen() {
             <FlatList
               nestedScrollEnabled={true}
               scrollEnabled={true}
-              ListHeaderComponent={<SnapCarousel data={carouselData} label={"BrakingNews"}/>}
+              ListHeaderComponent={<HomeScreenHeader data={carouselData} label={"BrakingNews"}/>}
               ListFooterComponent={<Footer/>}
               data={flatListData}
               showsVerticalScrollIndicator={false}
@@ -100,7 +100,7 @@ export default function HomeScreen() {
             />
           ) 
         }
-      </View>   
+      </SafeAreaView>   
     </GestureHandlerRootView>
   );
 }

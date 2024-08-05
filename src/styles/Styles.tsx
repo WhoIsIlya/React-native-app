@@ -90,7 +90,7 @@ const styles = StyleSheet.create({
     fontSize: 48,
     textAlign: 'center',
   },
-  textWhite:{
+  textWhiteBig:{
     color: Colors.white,
     fontWeight: 'bold',
     fontSize: 48,
@@ -105,6 +105,12 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 24,
     textAlign: 'center',
+  },
+  textDiscoverScreenTitle:{
+    fontWeight: 'bold',
+    fontSize: 32,
+    marginTop: 8,
+    marginBottom: 8,
   },
   welcomeViewBox: {
     flex: 1,
@@ -141,7 +147,6 @@ const styles = StyleSheet.create({
     paddingRight: 20,
   },
   containerSkeleton: {
-    paddingTop: 10,
     paddingLeft: 20,
     paddingRight: 20,
   },
@@ -178,7 +183,21 @@ const styles = StyleSheet.create({
     height: "100%",
     justifyContent: 'flex-end',
     borderRadius: 15,
-  }
+  },
+  searchView: {
+    marginBottom: 8,
+    flexDirection: 'row',
+    padding: 2,
+    paddingLeft: 20,
+    // justifyContent: 'space-between',
+    alignItems: 'center',
+    borderRadius: 15,
+    height: 40,
+  },
+  safeAreaPadding: {
+    paddingTop: 10,
+    paddingBottom: 10,
+  },
 });
 
 export {styles, Section};

@@ -51,7 +51,7 @@ export default function WelcomeScreen() {
             end={{ x:0.5, y:1 }}
           />
           <View style={[styles.welcomeViewBox]}>
-            <Text style={[styles.textWhite]}>{'WELCOME'}</Text>
+            <Text style={[styles.textWhiteBig]}>{'WELCOME'}</Text>
             <Text style={[styles.textWhiteSmall]}>Hello, and welcome</Text> 
           </View>
           <View style={[styles.touchableOpacityViewBox]}>
