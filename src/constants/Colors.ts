@@ -22,6 +22,7 @@ export const Colors = {
     searchBarBackgroundColor: white,
     searchBarTextColor: darkGray,
     carouselCardBackgroundColor: lightGray,
+    categoryBarActiveColor: lightGray,
   },
   dark: {
     text: white,
@@ -35,5 +36,6 @@ export const Colors = {
     searchBarBackgroundColor: jetBlack,
     searchBarTextColor: lighter,
     carouselCardBackgroundColor: darkGray,
+    categoryBarActiveColor: darkGray,
   },
 };

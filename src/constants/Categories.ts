@@ -1,11 +1,12 @@
 export const categories = [
-    { id: 1, title: 'redaction'},
-    { id: 2, title: 'travel'},
-    { id: 3, title: 'bussiness'},
-    { id: 4, title: 'it'},
-    { id: 5, title: 'emergency'},
-    { id: 6, title: 'sport'},
-    { id: 7, title: 'citizens'},
-    { id: 8, title: 'inform'},
-    { id: 9, title: 'city'}
+    { id: 0, title: 'Проишествия'},
+    { id: 1, title: 'Недвижимость'},
+    { id: 2, title: 'События'},
+    { id: 3, title: 'Дороги'},
+    { id: 4, title: 'Информация'},
+    { id: 5, title: 'Новости'},
+    { id: 6, title: 'Спорт'},
+    { id: 7, title: 'Пресса'},
+    { id: 8, title: 'Технологии'},
+    { id: 9, title: 'Редакция'}
 ];

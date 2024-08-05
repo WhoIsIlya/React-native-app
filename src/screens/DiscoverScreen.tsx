@@ -24,9 +24,9 @@ export default function DiscoverScreen() {
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
   };
 
-  const [activeCategory, setActiveCategory] = useState(1);
+  const [activeCategory, setActiveCategory] = useState(0);
   const [discoverNews, setDiscoverNews] = useState<any>();
-  const handleCategoryChange = ({category}:{category: number}) => {
+  const handleCategoryChange = (category: number) => {
     setActiveCategory(category);
     setDiscoverNews([]);
   }
@@ -54,6 +54,7 @@ export default function DiscoverScreen() {
       if (discoverData && discoverData.length > 0) {
         setDiscoverNews(discoverData);
       }
+      
     } catch (error) {
       console.error('Error fetching todos:', error);
     }
@@ -93,16 +94,18 @@ export default function DiscoverScreen() {
               
               {/* Title */}
               <Text style={[styles.textDiscoverScreenTitle,{color: colorStyle.textColor}]}>Обзор</Text>
-
-              {/* Categories */}
-              <View>
-                <CategoriesCards 
-                  categories={categories}
-                  activeCategory={activeCategory}
-                  handleCategoryChange={handleCategoryChange}
-                />
-              </View>
             </View>
+
+              
+            <View>
+              {/* Categories */}
+              <CategoriesCards 
+                categories={categories}
+                activeCategory={activeCategory}
+                handleCategoryChange={handleCategoryChange}
+              />
+            </View>
+          
           </View>
             {
               !discoverNews ? (
