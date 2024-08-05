@@ -1,22 +1,27 @@
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { Text, View, StyleSheet, Dimensions, useColorScheme } from "react-native";
+import { Text, View, StyleSheet, Dimensions, useColorScheme, TouchableOpacity } from "react-native";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import CarouselCard from "./CarouselCard";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "../constants/Colors";
 import { DataProps } from "../constants/DataInterface";
+import { Ionicons } from "@expo/vector-icons";
+import { styles } from "../styles/Styles";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-export default function SnapCarousel({data, label}: {data: any, label: string}) {
+export default function HomeScreenHeader({data, label}: {data: any, label: string}) {
   
   const ref = React.useRef<ICarouselInstance>(null);
   const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#101010' : Colors.lighter,
-    secondColor: isDarkMode ? Colors.darker : Colors.white,
-    oppositeColor: isDarkMode ? Colors.white : Colors.black,
-    trueColor: isDarkMode ? Colors.black : Colors.white,
+  const colorStyle = {
+    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
+    contrastColor: isDarkMode? Colors.dark.tint : Colors.light.tint,
+    textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
+    searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
+    searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
   };
+
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
     
   const handleClick = (item: DataProps) => {
@@ -32,7 +37,7 @@ export default function SnapCarousel({data, label}: {data: any, label: string}) 
       borderRadius: 15,
     },
     text: {
-      color: backgroundStyle.oppositeColor,
+      color: colorStyle.textColor,
       fontWeight: 'bold',
       fontSize: 18,
       textAlign: 'center',
@@ -40,8 +45,20 @@ export default function SnapCarousel({data, label}: {data: any, label: string}) 
   });
   
   return(
-    <View style={[{flex:1, paddingTop: 40}]}>
-      <Text style={[localStyles.text]}>Новости</Text>
+    <SafeAreaView style={[styles.safeAreaPadding]}>
+      <View style={[styles.container]}>
+        <TouchableOpacity style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]} onPress={() =>navigation.navigate('Search')}>
+          <TouchableOpacity>
+            <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
+          </TouchableOpacity>
+          <Text style={[{paddingLeft: 5, color: colorStyle.searchBarTextColor}]}>
+            Искать среди всех новостей
+          </Text>
+        </TouchableOpacity>
+      </View>
+
+      <Text style={[localStyles.text]}>От редакции</Text>
+     
       <View style={localStyles.carouselContainer}>
         <View style={{ flex: 1}}>
           <Carousel
@@ -64,6 +81,7 @@ export default function SnapCarousel({data, label}: {data: any, label: string}) 
           />
         </View>
       </View>
-    </View>
+      <Text style={[localStyles.text]}>Новости</Text>
+    </SafeAreaView>
   );
 }

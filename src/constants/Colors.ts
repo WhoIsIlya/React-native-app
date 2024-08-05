@@ -2,6 +2,7 @@ const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 const black = '#000000'
 const darker = '#101010'
+const jetBlack = '#252525'
 const white = '#ffffff'
 const lighter = '#e9e9e9'
 const grey = '#888888'
@@ -18,6 +19,9 @@ export const Colors = {
     tabIconSelected: darkGray,
     tabBarBackground: white,
     tabBarBorder: lightGray,
+    searchBarBackgroundColor: white,
+    searchBarTextColor: darkGray,
+    carouselCardBackgroundColor: lightGray,
   },
   dark: {
     text: white,
@@ -28,5 +32,8 @@ export const Colors = {
     tabIconSelected: white,
     tabBarBackgroundColor: black,
     tabBarBorderColor: darkGray,
+    searchBarBackgroundColor: jetBlack,
+    searchBarTextColor: lighter,
+    carouselCardBackgroundColor: darkGray,
   },
 };

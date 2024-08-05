@@ -57,7 +57,8 @@ export default function CarouselCard({ index, item, handleClick }: {item: DataPr
         </Text>
         <Text style={{ 
           textAlign: 'left',
-          fontSize: 15,
+          fontSize: 25,
+          fontWeight: '500',
           color: "#ffffff",
           paddingHorizontal: 20,
           paddingBottom: 20,
