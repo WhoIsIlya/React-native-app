@@ -1,9 +1,8 @@
 import React from "react";
-import { Text, View, useColorScheme, StyleSheet, Dimensions, TouchableOpacity } from "react-native";
+import { Text, View, useColorScheme, StyleSheet, Dimensions, TouchableOpacity, SafeAreaView } from "react-native";
 import { styles } from "../styles/Styles";
 import { Colors } from "../constants/Colors";
 import { LinearGradient } from "expo-linear-gradient";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { Ionicons } from "@expo/vector-icons";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -118,35 +117,7 @@ export default function SkeletonContent() {
             />
           </View>
         </View>
-      </View>
-      
+      </View> 
     </SafeAreaView>
-    // <View style={[
-    //   styles.container,
-    //   {
-    //     flexDirection: 'column',
-    //     backgroundColor: backgroundStyle.backgroundColor,
-    //     flex:1, 
-    //     paddingTop: 40
-    //   },
-    // ]}>
-    //   <Text style={[localStyles.text]}>Новости</Text>
-    //   <View style={[styles.containerHelper, {paddingTop: 10}]}>
-    //     <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: width/2*0.9,}]}>
-    //     </View>
-    //   </View>
-    //   <View style={[styles.containerHelper]}>
-    //     <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}>
-    //     </View>
-    //   </View>
-    //   <View style={[styles.containerHelper]}>
-    //     <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}>
-    //     </View>
-    //   </View>
-    //   <View style={[styles.containerHelper]}>
-    //     <View style={[styles.cardInfo, {backgroundColor: backgroundStyle.trueColor, minHeight: 160}]}>
-    //     </View>
-    //   </View>
-    // </View>
   );
 }

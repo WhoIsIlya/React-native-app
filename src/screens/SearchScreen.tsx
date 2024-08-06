@@ -1,12 +1,16 @@
-import { View, Text, useColorScheme, StatusBar, TouchableOpacity, TextInput} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import React, { useEffect, useRef } from "react";
+import { View, Text, useColorScheme, StatusBar, TouchableOpacity, TextInput, SafeAreaView, FlatList, ActivityIndicator, Dimensions} from "react-native";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
 import { Ionicons } from "@expo/vector-icons";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ParamListBase, useIsFocused, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { database } from "../utils/DatabaseProvider";
+import { debounce } from "lodash";
+import { DataProps } from "../constants/DataInterface";
+import FlatListCard from "../components/FlatListCard";
+import DiscoverScreenHeader from "../components/DiscoverScreenHeader";
 
 export default function SearchScreen() {
   const isFocused = useIsFocused();
@@ -18,6 +22,45 @@ export default function SearchScreen() {
     searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
   };
+
+  const [searchData, setSearchData] = useState<any>();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [request, setRequest] = useState<any>();
+  const { height, width } = Dimensions.get("window");
+  
+  const handleSearch = async (search: string) => {
+    if(search && search.length <= 2) {
+      setIsLoading(false);
+    }
+    if(search && search.length > 2) {
+      setIsLoading(true);
+      setRequest(search);
+
+      try {
+        const { data: searchResponce, error, status } = await database
+          .from('todos')
+          .select('id, articles, image_url, source_name')
+          .ilike('text', '%' + search + '%')
+          .limit(20)
+          .order('id', { ascending: false });
+  
+        if (error) {
+          console.error('Error fetching todos:', error.message);
+          return;
+        }
+
+        if (searchResponce && searchResponce.length > 0) {
+          setSearchData(searchResponce);
+          setIsLoading(false);
+        }
+        
+      } catch (error) {
+        console.error('Error fetching todos:', error);
+      }
+    }
+  }
+
+  const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
@@ -31,6 +74,12 @@ export default function SearchScreen() {
       onFocusHandler();
     }
   }, [isFocused]);
+  
+  const renderItem = ({item, index}: {item: DataProps, index: number}) => {
+    return(
+      <FlatListCard item={item}/>
+    )
+  }
 
   return (
     <GestureHandlerRootView>
@@ -48,7 +97,6 @@ export default function SearchScreen() {
             />
           <View style={[styles.safeAreaPadding]}>
             <View style={[styles.container]}>
-              {/* Header */}
               <View style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]}>
                 <TouchableOpacity>
                   <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
@@ -59,13 +107,36 @@ export default function SearchScreen() {
                   style={[{paddingLeft: 5, color: colorStyle.textColor}]}
                   placeholderTextColor={colorStyle.searchBarTextColor}
                   cursorColor={colorStyle.textColor}
-                  
+                  onChangeText={handleTextDebounce}
                 />
-              </View>
-
-              {/* Search */}
+              </View>             
             </View>
           </View> 
+          <View style={[{paddingTop: 40}]}>
+            {
+              isLoading ?  
+                <ActivityIndicator
+                  size={"large"}
+                  color={"gray"}
+                  style={{
+                    position: 'absolute',
+                    left: 30,
+                    top: -8,
+
+                  }}
+                /> :
+                ('')
+            }
+            <FlatList
+              nestedScrollEnabled={true}
+              scrollEnabled={true}
+              data={searchData}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.articles}
+              renderItem={renderItem}
+              horizontal={false}
+            />
+          </View>
       </SafeAreaView>
     </GestureHandlerRootView>
   );

@@ -1,42 +1,33 @@
 import React, { useEffect } from "react";
-import { View, Text, useColorScheme, StatusBar } from "react-native";
+import { View, Text, useColorScheme, StatusBar, ScrollView, TouchableOpacity } from "react-native";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
-import { ScrollView } from "react-native-gesture-handler";
-import { TouchableOpacity } from "@gorhom/bottom-sheet";
 
 export default function CategoriesCards({categories, activeCategory, handleCategoryChange}:{categories: {id: number, title: string}[], activeCategory: number, handleCategoryChange: (index: number) => void}) {
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
-    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
-    contrastColor: isDarkMode? Colors.dark.tint : Colors.light.tint,
-    textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
-    searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
-    searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
     categoryBarActiveColor: isDarkMode ? Colors.dark.categoryBarActiveColor : Colors.light.categoryBarActiveColor,
+    categoryBarInactiveColor: isDarkMode ? Colors.dark.categoryBarInactiveColor : Colors.light.categoryBarInactiveColor,
+    categoryBarActiveTextColor: isDarkMode ? Colors.dark.categoryBarActiveTextColor : Colors.light.categoryBarActiveTextColor,
+    categoryBarInactiveTextColor: isDarkMode ? Colors.dark.categoryBarInactiveTextColor : Colors.light.categoryBarInactiveTextColor,
   };
 
   return(
     <View>
-      <ScrollView
-        horizontal={true}
-        showsHorizontalScrollIndicator={false}
-        contentContainerStyle= {[{
-          paddingRight: 20,
-          paddingLeft: 20,
-        }]}
-      >
+      <View style={[{paddingLeft: 20, paddingRight: 20, flex: 1, flexDirection: 'row', flexWrap: 'wrap'}]}>
         {
           categories.map((category: any, index: number) => {
             let isActive = category.id == activeCategory;
-            let activeButtonColor = isActive ? colorStyle.categoryBarActiveColor : colorStyle.searchBarBackgroundColor;
+            let activeButtonColor = isActive ? colorStyle.categoryBarActiveColor : colorStyle.categoryBarInactiveColor;
+            let activeTextColor = isActive ? colorStyle.categoryBarActiveTextColor : colorStyle.categoryBarInactiveTextColor;
 
             return(
               <TouchableOpacity
                 key={index}
                 onPress={() => handleCategoryChange(index)}
                 style={[{
-                  paddingRight: 10,
+                  paddingRight: 5,
+                  paddingBottom: 5,
                 }]}
               >
                 <View style={[{
@@ -45,7 +36,7 @@ export default function CategoriesCards({categories, activeCategory, handleCateg
                   borderRadius: 15,
                 }]}>
                   <Text style={[{
-                    color: colorStyle.searchBarTextColor,
+                    color: activeTextColor,
                     padding: 5
                   }
                   ]}> 
@@ -56,7 +47,7 @@ export default function CategoriesCards({categories, activeCategory, handleCateg
               </TouchableOpacity>
             )
           })}
-      </ScrollView>
+      </View>
     </View>
   )
 }

@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
     width: '100%',
     paddingLeft: 20,
     paddingRight: 20,
+    maxWidth: 300,
   },
   container: {
     flex: 1,
@@ -185,7 +186,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
   },
   searchView: {
-    marginBottom: 8,
+    marginBottom: 5,
     flexDirection: 'row',
     padding: 2,
     paddingLeft: 20,
@@ -195,7 +196,7 @@ const styles = StyleSheet.create({
     height: 40,
   },
   safeAreaPadding: {
-    paddingTop: 10,
+    paddingTop: 30,
     paddingBottom: 10,
   },
 });

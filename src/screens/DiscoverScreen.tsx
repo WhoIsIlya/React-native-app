@@ -1,9 +1,8 @@
-import { View, Text, useColorScheme, StatusBar, FlatList } from "react-native";
+import { View, Text, useColorScheme, StatusBar, FlatList, ActivityIndicator, Dimensions, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { GestureHandlerRootView, TextInput, TouchableOpacity } from "react-native-gesture-handler";
+//import { GestureHandlerRootView, ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -12,6 +11,7 @@ import { categories } from "../constants/Categories";
 import { database } from "../utils/DatabaseProvider";
 import FlatListCard from "../components/FlatListCard";
 import { DataProps } from "../constants/DataInterface";
+import DiscoverScreenHeader from "../components/DiscoverScreenHeader";
 
 
 export default function DiscoverScreen() {
@@ -24,11 +24,19 @@ export default function DiscoverScreen() {
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
   };
 
+  const { height, width } = Dimensions.get("window");
+
   const [activeCategory, setActiveCategory] = useState(0);
   const [discoverNews, setDiscoverNews] = useState<any>();
+  const [isLoading, setIsLoaading] = useState<boolean>();
+
   const handleCategoryChange = (category: number) => {
-    setActiveCategory(category);
-    setDiscoverNews([]);
+    if (category !== activeCategory) {
+      setActiveCategory(category);
+      setIsLoaading(true);
+      setDiscoverNews([]);
+    }
+    
   }
 
   useEffect (() => {
@@ -53,6 +61,7 @@ export default function DiscoverScreen() {
       
       if (discoverData && discoverData.length > 0) {
         setDiscoverNews(discoverData);
+        setIsLoaading(false);
       }
       
     } catch (error) {
@@ -67,64 +76,24 @@ export default function DiscoverScreen() {
   }
   
   return (
-    <GestureHandlerRootView>
-      <SafeAreaView style={[
-        styles.rootView,
-        {
-          flexDirection: 'column',
-          backgroundColor: colorStyle.backgroundColor,
-        },
-      ]}>
-          <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              backgroundColor={"transparent"}
-              translucent={true}
-            />
-          <View style={[styles.safeAreaPadding]}>
-            <View style={[{paddingLeft: 20, paddingRight: 20}]}>
-              {/* Header */}
-              <TouchableOpacity style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]} onPress={() =>navigation.navigate('Search')}>
-                <TouchableOpacity>
-                  <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
-                </TouchableOpacity>
-                <Text style={[{paddingLeft: 5, color: colorStyle.searchBarTextColor}]}>
-                  Искать среди всех новостей
-                </Text>
-              </TouchableOpacity>
-              
-              {/* Title */}
-              <Text style={[styles.textDiscoverScreenTitle,{color: colorStyle.textColor}]}>Обзор</Text>
-            </View>
+    <SafeAreaView style={[styles.rootView,{backgroundColor: colorStyle.backgroundColor}]}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={"transparent"}
+        translucent={true}
+      />
 
-              
-            <View>
-              {/* Categories */}
-              <CategoriesCards 
-                categories={categories}
-                activeCategory={activeCategory}
-                handleCategoryChange={handleCategoryChange}
-              />
-            </View>
-          
-          </View>
-            {
-              !discoverNews ? (
-                <Text>Loading</Text>
-              ) : (
-                <FlatList
-                  nestedScrollEnabled={true}
-                  scrollEnabled={true}
-                  data={discoverNews}
-                  showsVerticalScrollIndicator={false}
-                  keyExtractor={item => item.articles}
-                  renderItem={renderItem}
-                  horizontal={false}
-                />
-              ) 
-            }
-          
-      </SafeAreaView>
-    </GestureHandlerRootView>
+      <FlatList
+        nestedScrollEnabled={true}
+        scrollEnabled={true}
+        ListHeaderComponent={<DiscoverScreenHeader categories={categories} activeCategory={activeCategory} handleCategoryChange={handleCategoryChange}/>}
+        data={!isLoading ? discoverNews : ''}
+        showsVerticalScrollIndicator={false}
+        keyExtractor={item => item.articles}
+        renderItem={renderItem}
+        horizontal={false}
+      />
+    </SafeAreaView>
   );
 }
 

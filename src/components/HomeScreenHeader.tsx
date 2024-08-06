@@ -1,14 +1,13 @@
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
-import { Text, View, StyleSheet, Dimensions, useColorScheme, TouchableOpacity } from "react-native";
+import { Text, View, StyleSheet, Dimensions, useColorScheme, TouchableOpacity, SafeAreaView } from "react-native";
 import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
 import CarouselCard from "./CarouselCard";
 import { Colors } from "../constants/Colors";
 import { DataProps } from "../constants/DataInterface";
 import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../styles/Styles";
-import { SafeAreaView } from "react-native-safe-area-context";
 
 export default function HomeScreenHeader({data, label}: {data: any, label: string}) {
   

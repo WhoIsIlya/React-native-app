@@ -1,6 +1,6 @@
 import { registerRootComponent } from 'expo';
 import React from "react";
-import { NavigationContainer } from "@react-navigation/native";
+import { DefaultTheme, NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import HomeScreen from "../screens/HomeScreen";
@@ -33,7 +33,7 @@ export default function App() {
             borderColor: isDarkMode ? Colors.dark.tabBarBorderColor: Colors.light.tabBarBackground,
             elevation: isDarkMode  ? 0 : 3,
             height: 50,
-          },  
+          },
         })}
       >
         <Tab.Screen 
@@ -68,7 +68,7 @@ export default function App() {
         />
         <Tab.Screen 
           name="Search" 
-          component={SearchScreen }
+          component={SearchScreen}
           options={{
             tabBarLabel: 'Search',
             tabBarIcon: ({ color, size }) => (
@@ -86,6 +86,9 @@ export default function App() {
         initialRouteName='Welcome'
         screenOptions={{
           headerShown: false,
+          contentStyle: {
+            backgroundColor: isDarkMode  ? Colors.dark.background : Colors.light.background,
+          }
         }}
       >
         <Stack.Screen name="Splash" component={SplashScreens}/>

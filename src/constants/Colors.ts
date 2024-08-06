@@ -4,7 +4,8 @@ const black = '#000000'
 const darker = '#101010'
 const jetBlack = '#252525'
 const white = '#ffffff'
-const lighter = '#e9e9e9'
+const lighter = '#f3f3f3'
+const light = '#e9e9e9'
 const grey = '#888888'
 const lightGray = '#aaaaaa'
 const darkGray = '#444444'
@@ -12,7 +13,7 @@ const darkGray = '#444444'
 export const Colors = {
   light: {
     text: black,
-    background: lighter,
+    background: light,
     tint: tintColorLight,
     icon: '#687076',
     tabIconDefault: lightGray,
@@ -22,7 +23,10 @@ export const Colors = {
     searchBarBackgroundColor: white,
     searchBarTextColor: darkGray,
     carouselCardBackgroundColor: lightGray,
-    categoryBarActiveColor: lightGray,
+    categoryBarActiveColor: white,
+    categoryBarInactiveColor: lighter,
+    categoryBarActiveTextColor: black,
+    categoryBarInactiveTextColor: grey,
   },
   dark: {
     text: white,
@@ -34,8 +38,11 @@ export const Colors = {
     tabBarBackgroundColor: black,
     tabBarBorderColor: darkGray,
     searchBarBackgroundColor: jetBlack,
-    searchBarTextColor: lighter,
+    searchBarTextColor: grey,
     carouselCardBackgroundColor: darkGray,
     categoryBarActiveColor: darkGray,
+    categoryBarInactiveColor: jetBlack,
+    categoryBarActiveTextColor: white,
+    categoryBarInactiveTextColor: lightGray,
   },
 };
