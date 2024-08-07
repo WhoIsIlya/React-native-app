@@ -6,14 +6,14 @@ import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { LinearGradient } from "expo-linear-gradient";
 
-export default function FlatListCard ({item, index}: {item: DataProps, index?: number}) {
+export default function FlatListCard ({item, index, isLocalView}: {item: DataProps, index?: number, isLocalView?: boolean}) {
   const isDarkMode = useColorScheme() === 'dark';
   const backgroundStyle = {
     trueColor: isDarkMode ? Colors.black : Colors.white,
   };
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const handleClick = (item: DataProps) => {
-    navigation.navigate("ContentDetails", {item});
+    navigation.navigate("ContentDetails", {item, isLocalView, index});
   };
 
   return (

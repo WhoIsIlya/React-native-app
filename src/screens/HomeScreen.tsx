@@ -8,6 +8,7 @@ import FlatListCard from '../components/FlatListCard'
 import { database } from "../utils/DatabaseProvider";
 import { DataProps } from "../constants/DataInterface";
 import { styles } from "../styles/Styles";
+import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 
 export default function HomeScreen() {
@@ -75,6 +76,7 @@ export default function HomeScreen() {
   }
 
   return (
+    <GestureHandlerRootView>
     <SafeAreaView style={[ styles.rootView, {backgroundColor: backgroundStyle.backgroundColor}]}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
@@ -98,7 +100,8 @@ export default function HomeScreen() {
           />
         ) 
       }
-    </SafeAreaView>   
+    </SafeAreaView>
+    </GestureHandlerRootView>  
   );
 }
 

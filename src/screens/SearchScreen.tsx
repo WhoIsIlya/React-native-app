@@ -3,7 +3,6 @@ import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
 import { Ionicons } from "@expo/vector-icons";
-import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { ParamListBase, useIsFocused, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import { database } from "../utils/DatabaseProvider";
@@ -31,6 +30,7 @@ export default function SearchScreen() {
   const handleSearch = async (search: string) => {
     if(search && search.length <= 2) {
       setIsLoading(false);
+      setSearchData(undefined);
     }
     if(search && search.length > 2) {
       setIsLoading(true);
@@ -51,6 +51,11 @@ export default function SearchScreen() {
 
         if (searchResponce && searchResponce.length > 0) {
           setSearchData(searchResponce);
+          setIsLoading(false);
+        }
+
+        if (searchResponce && searchResponce.length == 0) {
+          setSearchData(undefined);
           setIsLoading(false);
         }
         
@@ -82,63 +87,61 @@ export default function SearchScreen() {
   }
 
   return (
-    <GestureHandlerRootView>
-      <SafeAreaView style={[
-        styles.rootView,
+    <SafeAreaView style={[
+      styles.rootView,
+      {
+        flexDirection: 'column',
+        backgroundColor: colorStyle.backgroundColor,
+      },
+    ]}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={"transparent"}
+        translucent={true}
+      />
+      <View style={[styles.safeAreaPadding]}>
+        <View style={[styles.container]}>
+          <View style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]}>
+            <TouchableOpacity>
+              <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
+            </TouchableOpacity>
+            <TextInput
+              ref={inputRef}
+              placeholder="Искать среди всех новостей"
+              style={[{paddingLeft: 5, color: colorStyle.textColor}]}
+              placeholderTextColor={colorStyle.searchBarTextColor}
+              cursorColor={colorStyle.textColor}
+              onChangeText={handleTextDebounce}
+            />
+          </View>             
+        </View>
+      </View> 
+      <View style={[{paddingTop: 40}]}>
         {
-          flexDirection: 'column',
-          backgroundColor: colorStyle.backgroundColor,
-        },
-      ]}>
-          <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              backgroundColor={"transparent"}
-              translucent={true}
-            />
-          <View style={[styles.safeAreaPadding]}>
-            <View style={[styles.container]}>
-              <View style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]}>
-                <TouchableOpacity>
-                  <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
-                </TouchableOpacity>
-                <TextInput
-                  ref={inputRef}
-                  placeholder="Искать среди всех новостей"
-                  style={[{paddingLeft: 5, color: colorStyle.textColor}]}
-                  placeholderTextColor={colorStyle.searchBarTextColor}
-                  cursorColor={colorStyle.textColor}
-                  onChangeText={handleTextDebounce}
-                />
-              </View>             
-            </View>
-          </View> 
-          <View style={[{paddingTop: 40}]}>
-            {
-              isLoading ?  
-                <ActivityIndicator
-                  size={"large"}
-                  color={"gray"}
-                  style={{
-                    position: 'absolute',
-                    left: 30,
-                    top: -8,
+          isLoading ?  
+            <ActivityIndicator
+              size={"large"}
+              color={"gray"}
+              style={{
+                position: 'absolute',
+                left: 30,
+                top: -8,
 
-                  }}
-                /> :
-                ('')
-            }
-            <FlatList
-              nestedScrollEnabled={true}
-              scrollEnabled={true}
-              data={searchData}
-              showsVerticalScrollIndicator={false}
-              keyExtractor={item => item.articles}
-              renderItem={renderItem}
-              horizontal={false}
-            />
-          </View>
-      </SafeAreaView>
-    </GestureHandlerRootView>
+              }}
+            /> :
+            ('')
+        }
+        <FlatList
+          nestedScrollEnabled={true}
+          scrollEnabled={true}
+          data={searchData}
+          showsVerticalScrollIndicator={false}
+          keyExtractor={item => item.articles}
+          renderItem={renderItem}
+          horizontal={false}
+        />
+      </View>
+    </SafeAreaView>
   );
 }
 

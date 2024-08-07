@@ -2,7 +2,6 @@ import { View, Text, useColorScheme, StatusBar, FlatList, ActivityIndicator, Dim
 import React, { useEffect, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
-//import { GestureHandlerRootView, ScrollView, TextInput, TouchableOpacity } from "react-native-gesture-handler";
 import { Ionicons } from "@expo/vector-icons";
 import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";

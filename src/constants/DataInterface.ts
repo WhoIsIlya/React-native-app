@@ -11,5 +11,7 @@ export interface DataProps {
 export type ParamList = {
   ContentDetails: {
     item: DataProps;
+    isLocalView?: boolean,
+    index: number,
   };
 };

@@ -7,11 +7,15 @@ import { DataProps, ParamList } from "../constants/DataInterface";
 import { database } from "../utils/DatabaseProvider";
 import { styles } from "../styles/Styles";
 import { Colors } from '../constants/Colors'
+import ContentFooter from "../components/ContentFooter";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height, width } = Dimensions.get("window");
 
 export default function ContentDetailsScreen() {
   const item = useRoute<RouteProp<ParamList, 'ContentDetails'>>();
+
+
   const [visible, setVisible] = useState(false);
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
@@ -36,6 +40,18 @@ export default function ContentDetailsScreen() {
 
   const [flatListData, setFlatListData] = useState<any>();
 
+  const _retrieveData = async () => {
+    try {
+      const value = await AsyncStorage.getItem('news');
+      if (value !== null) {
+        const parseAsyncStorageData = JSON.parse(value);
+        setFlatListData([parseAsyncStorageData[item.params.index]]);
+      }
+    } catch (error) {
+      console.log("Error with asyncstorage:", error);
+    }
+  };
+
   const getFlatListData = async () => {
     try {
       const { data: flatListData, error, status } = await database
@@ -57,7 +73,11 @@ export default function ContentDetailsScreen() {
   };
 
   useEffect(() => {
-    getFlatListData();
+    if (item.params.isLocalView == true) {
+      _retrieveData();
+    } else {
+      getFlatListData();
+    }
   }, []);
 
   const renderItem = ({item, index}: {item: DataProps, index: number}) => {
@@ -105,6 +125,7 @@ export default function ContentDetailsScreen() {
               nestedScrollEnabled={true}
               scrollEnabled={true}
               data={flatListData}
+              ListFooterComponent={ !item.params.isLocalView == true ? <ContentFooter data={flatListData}/> : undefined}
               showsVerticalScrollIndicator={false}
               keyExtractor={item => item.articles}
               renderItem={renderItem}
