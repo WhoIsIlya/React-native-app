@@ -38,13 +38,25 @@ export default function ContentFooter({data}:{data:[DataProps]}) {
 
   const _storeData = async () => {
     try {
-      const value = await AsyncStorage.getItem('news');
-      if (value !== null) {
-        var asyncStorageData = JSON.parse(value);
-        asyncStorageData.push(data[0]);
+      const asyncStorageRequest = await AsyncStorage.getItem('news');
+      if (asyncStorageRequest) {
+        var asyncStorageData = JSON.parse(asyncStorageRequest);
+        var isPreviousSaved = false;
+        if (asyncStorageData[0]) {
+          for (const property in asyncStorageData){
+            if (asyncStorageData[property].id == data[0].id) {
+              isPreviousSaved = true;
+            }
+          }
+          if (isPreviousSaved === false) {
+            asyncStorageData.push(data[0]);
+          }
+        }
+      } else {
+        asyncStorageData = data;
       }
     } catch (error) {
-      console.log("Error with asyncstorage:", error);
+      console.log("Error with reading asyncstorage:", error);
     }
     try {
       await AsyncStorage.setItem(
@@ -52,7 +64,7 @@ export default function ContentFooter({data}:{data:[DataProps]}) {
         JSON.stringify(asyncStorageData),
       );
     } catch (error) {
-      console.log("Error with asyncstorage:", error);
+      console.log("Error with writing asyncstorage:", error);
     }
   };
   

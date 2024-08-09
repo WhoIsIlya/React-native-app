@@ -7,7 +7,8 @@ import { DataProps } from "../constants/DataInterface";
 import FlatListCard from "../components/FlatListCard";
 import { database } from "../utils/DatabaseProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useIsFocused } from "@react-navigation/native";
+import { ParamListBase, useIsFocused, useNavigation } from "@react-navigation/native";
+import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 
 export default function SavedScreen() {
   const isDarkMode = useColorScheme() === 'dark';
@@ -18,8 +19,20 @@ export default function SavedScreen() {
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
   };
   const isFocused = useIsFocused();
-
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
   const [savedListData, setSavedListData] = useState<any>();
+
+  const _clearData = async () => {
+    try {
+      await AsyncStorage.setItem(
+        'news',
+        '',
+      );
+      setSavedListData(undefined);
+    } catch (error) {
+      console.log("Error clearing async storage: ", error);
+    }
+  }
 
   const _retrieveData = async () => {
     try {
@@ -53,20 +66,33 @@ export default function SavedScreen() {
       />
       <View style={[styles.safeAreaPadding]}>
         <View style={[styles.container]}>
-          <View style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]}>
+          <TouchableOpacity style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]} onPress={() =>navigation.navigate('Search')}>
             <TouchableOpacity>
               <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
             </TouchableOpacity>
-            <TextInput
-              placeholder="Искать среди всех новостей"
-              style={[{paddingLeft: 5, color: colorStyle.textColor}]}
-              placeholderTextColor={colorStyle.searchBarTextColor}
-              cursorColor={colorStyle.textColor}
-            />
-          </View>
+            <Text style={[{paddingLeft: 5, color: colorStyle.searchBarTextColor}]}>
+              Искать среди всех новостей
+            </Text>
+          </TouchableOpacity>
         </View>
-        <View style={[{flexDirection: 'row', paddingLeft: 20, paddingRight: 20, paddingTop: 45}]}>
-          <Text style={[styles.textDiscoverScreenTitle,{color: colorStyle.textColor}]}>Закладки</Text>
+        <View style={[{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight: 20, paddingTop: 45}]}>
+          <Text style={[styles.textDiscoverScreenTitle,{color: colorStyle.textColor, flex: 1}]}>Сохраненное</Text>
+          <View style={[{paddingTop: 5}]}>
+            <TouchableOpacity 
+              style={[{
+                backgroundColor: colorStyle.searchBarBackgroundColor, 
+                borderRadius: 15,
+                height: 35,
+                paddingLeft: 15,
+                paddingRight: 15,
+              }]}
+              onPress={_clearData}
+            >
+              <Text style={[styles.textWhiteSmall,{color: colorStyle.textColor, flex: 1, alignSelf: 'flex-end', textAlignVertical:'center'}]}>Очистить</Text>
+            </TouchableOpacity>
+          </View>
+
+          
         </View>
         <FlatList
             nestedScrollEnabled={true}
@@ -76,6 +102,7 @@ export default function SavedScreen() {
             keyExtractor={item => item.articles}
             renderItem={renderItem}
             horizontal={false}
+            inverted={true}
           />
       </View>
       

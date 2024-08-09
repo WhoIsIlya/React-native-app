@@ -58,6 +58,7 @@ export default function ContentDetailsScreen() {
         .from('todos')
         .select()
         .eq('id', item.params.item.id)
+        .limit(1)
 
       if (error) {
         console.error('Error fetching todos:', error.message);
