@@ -11,25 +11,23 @@ import { BottomSheetModal, BottomSheetView, BottomSheetModalProvider } from '@go
 export default function WelcomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
-    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
+    bottomSheetModalBackgroundColor: isDarkMode ? Colors.dark.bottomSheetModalBackgroundColor : Colors.light.bottomSheetModalBackgroundColor,
+    bottomSheetModalIndicatorColor: isDarkMode ? Colors.dark.bottomSheetModalIndicatorColor : Colors.light.bottomSheetModalIndicatorColor,
     textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
   };
 
-  // ref
+  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+
   const bottomSheetModalRef = useRef<BottomSheetModal>(null);
+  const snapPoints = useMemo(() => ['27%', '27%'], []);
 
-  // variables
-  const snapPoints = useMemo(() => ['30%', '30%'], []);
-
-  // callbacks
   const handlePresentModalPress = useCallback(() => {
     bottomSheetModalRef.current?.present();
   }, []);
   const handleSheetChanges = useCallback((index: number) => {
     //console.log('handleSheetChanges', index);
   }, []);
-
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
+  
   return (
     <GestureHandlerRootView style={styles.flex}>
       <BottomSheetModalProvider>
@@ -40,10 +38,10 @@ export default function WelcomeScreen() {
           style={[styles.backgroundImage]}
         >
           <StatusBar
-              barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-              backgroundColor={'transparent'}
-              translucent={true}
-            />
+            barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+            backgroundColor={'transparent'}
+            translucent={true}
+          />
           <LinearGradient 
             colors={[ isDarkMode ? 'rgba(0,0,0,0.5)' : 'rgba(0,0,0,0.2)', isDarkMode ? 'rgba(0,0,0,1)' : 'rgba(0,0,0,1)']}
             style={[styles.backgroundGradientFullscreen]}
@@ -51,8 +49,8 @@ export default function WelcomeScreen() {
             end={{ x:0.5, y:1 }}
           />
           <View style={[styles.welcomeViewBox]}>
-            <Text style={[styles.textWhiteBig]}>{'WELCOME'}</Text>
-            <Text style={[styles.textWhiteSmall]}>Hello, and welcome</Text> 
+            <Text style={[styles.textWhiteBig]}>{'ЙОШКАР-ОЛА'}</Text>
+            <Text style={[styles.textWhiteSmall]}>ВСЕГДА ОНАЛЙН</Text> 
           </View>
           <View style={[styles.touchableOpacityViewBox]}>
             <LinearGradient
@@ -65,7 +63,7 @@ export default function WelcomeScreen() {
                 onPress={handlePresentModalPress}
                 style={[styles.touchableOpacity]}
               >
-                <Text style={[styles.homeScreenText]}>Getting started</Text>  
+                <Text style={[styles.homeScreenText]}>Давайте начнем!</Text>  
               </Pressable>
             </LinearGradient>
             <BottomSheetModal
@@ -73,20 +71,20 @@ export default function WelcomeScreen() {
               index={1}
               snapPoints={snapPoints}
               onChange={handleSheetChanges}
-              backgroundStyle={[{backgroundColor: isDarkMode ? "#363636" : "#ffffff",}]}
-              handleStyle={[{backgroundColor: isDarkMode ? "#363636" : "#ffffff",}]}
-              handleIndicatorStyle={[{backgroundColor: isDarkMode ? "#aaaaaa" : "#909090",}]}
+              backgroundStyle={[{backgroundColor: colorStyle.bottomSheetModalBackgroundColor}]}
+              handleStyle={[{backgroundColor: colorStyle.bottomSheetModalBackgroundColor}]}
+              handleIndicatorStyle={[{backgroundColor: colorStyle.bottomSheetModalIndicatorColor}]}
             >
-              <BottomSheetView style={[styles.contentContainer, {backgroundColor: isDarkMode ? "#363636" : "#ffffff",}]}>
-                <View style={[{marginBottom:30, marginHorizontal: 10, maxWidth: 400}]}>
-                  <Text style={[styles.homeScreenText, {color: colorStyle.textColor}]}>Hello, the application is provided "As is", for feedback:</Text>
+              <BottomSheetView style={[styles.contentContainer, {backgroundColor: colorStyle.bottomSheetModalBackgroundColor}]}>
+                <View style={[styles.bottomSheetView]}>
+                  <Text style={[styles.homeScreenText, {color: colorStyle.textColor}]}>Приложение предоставляется "Как есть", обратная связь:</Text>
                   <Text style={[styles.homeScreenText, {color: colorStyle.textColor}]}>worked.mail@mail.ru</Text>
                 </View>
                 <TouchableOpacity 
                   style={[styles.touchableOpacityModal]}
                   onPress={() => navigation.navigate('HomeTabs')}
                 >
-                  <Text style={[styles.homeScreenText]}>Apply</Text>
+                  <Text style={[styles.homeScreenText]}>Продолжить</Text>
                 </TouchableOpacity>
               </BottomSheetView>
             </BottomSheetModal>

@@ -1,4 +1,4 @@
-import { View, useColorScheme, StatusBar, SafeAreaView, FlatList } from "react-native";
+import { useColorScheme, StatusBar, SafeAreaView, FlatList } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../constants/Colors";
 import HomeScreenHeader from "../components/HomeScreenHeader";
@@ -13,7 +13,7 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 export default function HomeScreen() {
   const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
+  const colorStyle = {
     backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
   };
 
@@ -77,30 +77,30 @@ export default function HomeScreen() {
 
   return (
     <GestureHandlerRootView>
-    <SafeAreaView style={[ styles.rootView, {backgroundColor: backgroundStyle.backgroundColor}]}>
-      <StatusBar
-        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-        backgroundColor={"transparent"}
-        translucent={true}
-      />
-      {
-        !flatListData ? (
-          <SkeletonContent/>
-        ) : (
-          <FlatList
-            nestedScrollEnabled={true}
-            scrollEnabled={true}
-            ListHeaderComponent={<HomeScreenHeader data={carouselData} label={"BrakingNews"}/>}
-            ListFooterComponent={<Footer/>}
-            data={flatListData}
-            showsVerticalScrollIndicator={false}
-            keyExtractor={item => item.articles}
-            renderItem={renderItem}
-            horizontal={false}
-          />
-        ) 
-      }
-    </SafeAreaView>
+      <SafeAreaView style={[ styles.rootView, {backgroundColor: colorStyle.backgroundColor}]}>
+        <StatusBar
+          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+          backgroundColor={"transparent"}
+          translucent={true}
+        />
+        {
+          !flatListData ? (
+            <SkeletonContent/>
+          ) : (
+            <FlatList
+              nestedScrollEnabled={true}
+              scrollEnabled={true}
+              ListHeaderComponent={<HomeScreenHeader data={carouselData} label={"BrakingNews"}/>}
+              ListFooterComponent={<Footer/>}
+              data={flatListData}
+              showsVerticalScrollIndicator={false}
+              keyExtractor={item => item.articles}
+              renderItem={renderItem}
+              horizontal={false}
+            />
+          ) 
+        }
+      </SafeAreaView>
     </GestureHandlerRootView>  
   );
 }

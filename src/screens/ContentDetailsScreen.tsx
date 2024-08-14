@@ -1,7 +1,6 @@
 import { View, Text, ActivityIndicator, Dimensions, StyleSheet, useColorScheme, FlatList, StatusBar, Image } from "react-native";
 import React, { useEffect, useState } from "react";
-import { ParamListBase, useNavigation, useRoute } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useRoute } from "@react-navigation/native";
 import { RouteProp } from '@react-navigation/native';
 import { DataProps, ParamList } from "../constants/DataInterface";
 import { database } from "../utils/DatabaseProvider";
@@ -12,32 +11,14 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 
 const { height, width } = Dimensions.get("window");
 
-export default function ContentDetailsScreen() {
-  const item = useRoute<RouteProp<ParamList, 'ContentDetails'>>();
-
-
-  const [visible, setVisible] = useState(false);
-
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-  
+export default function ContentDetailsScreen() {  
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
     backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
     textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
   };
-  const stylesLocal = StyleSheet.create ({
-    article: {
-      color: colorStyle.textColor,
-      fontSize: 23,
-      paddingBottom: 20,
-    },
-    text: {
-        color: colorStyle.textColor,
-        fontSize: 13,
-        paddingTop: 20,
-    }
-  });
 
+  const item = useRoute<RouteProp<ParamList, 'ContentDetails'>>();
   const [flatListData, setFlatListData] = useState<any>();
 
   const _retrieveData = async () => {
@@ -81,20 +62,34 @@ export default function ContentDetailsScreen() {
     }
   }, []);
 
+  const stylesLocal = StyleSheet.create ({
+    article: {
+      color: colorStyle.textColor,
+      fontSize: 23,
+      paddingBottom: 20,
+    },
+    text: {
+        color: colorStyle.textColor,
+        fontSize: 13,
+        paddingTop: 20,
+    },
+    image: {
+      flex: 1,
+      width: width * 0.9,
+      height: width * 0.5,
+      borderRadius: 15, 
+    },
+  });
+
   const renderItem = ({item, index}: {item: DataProps, index: number}) => {
     return (
-      <View style={[{flex:1, padding: 20, paddingTop: 60}]}>
+      <View style={[styles.renderItemRootViewPadding]}>
         <Text style={[stylesLocal.article]}>{item.articles}</Text>
         { item.image_url ? 
           <Image
             source={{ uri: item.image_url || ""}}
             resizeMode = 'cover'
-            style={{
-              flex: 1,
-              width: width * 0.9,
-              height: width * 0.5,
-              borderRadius: 15,
-            }}
+            style={stylesLocal.image}
           /> : ''
         }
         <Text style={[stylesLocal.text]}>{item.text}</Text>
@@ -104,12 +99,12 @@ export default function ContentDetailsScreen() {
   }
 
   return (
-    <View style={[ styles.rootView, {backgroundColor: colorStyle.backgroundColor}]}>
-        <StatusBar
-          barStyle={isDarkMode ? 'light-content' : 'dark-content'}
-          backgroundColor={"transparent"}
-          translucent={true}
-        />
+    <View style={[styles.rootView, {backgroundColor: colorStyle.backgroundColor}]}>
+      <StatusBar
+        barStyle={isDarkMode ? 'light-content' : 'dark-content'}
+        backgroundColor={"transparent"}
+        translucent={true}
+      />
       { 
         !flatListData ? (
           <ActivityIndicator

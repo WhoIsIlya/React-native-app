@@ -2,7 +2,7 @@ import { ParamListBase, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 import React from "react";
 import { Text, View, StyleSheet, Dimensions, useColorScheme, TouchableOpacity, SafeAreaView } from "react-native";
-import Carousel, { ICarouselInstance } from "react-native-reanimated-carousel";
+import Carousel from "react-native-reanimated-carousel";
 import CarouselCard from "./CarouselCard";
 import { Colors } from "../constants/Colors";
 import { DataProps } from "../constants/DataInterface";
@@ -10,12 +10,8 @@ import { Ionicons } from "@expo/vector-icons";
 import { styles } from "../styles/Styles";
 
 export default function HomeScreenHeader({data, label}: {data: any, label: string}) {
-  
-  const ref = React.useRef<ICarouselInstance>(null);
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
-    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
-    contrastColor: isDarkMode? Colors.dark.tint : Colors.light.tint,
     textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
     searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
@@ -29,7 +25,7 @@ export default function HomeScreenHeader({data, label}: {data: any, label: strin
 
   const width = Dimensions.get('window').width;
 
-  const localStyles = StyleSheet.create({
+  const stylesLocal = StyleSheet.create({
     carouselContainer: {
       width: width,
       height: width/2,
@@ -45,21 +41,22 @@ export default function HomeScreenHeader({data, label}: {data: any, label: strin
   
   return(
     <SafeAreaView style={[styles.safeAreaPadding]}>
+
       <View style={[styles.container]}>
         <TouchableOpacity style= {[styles.searchView, {backgroundColor: colorStyle.searchBarBackgroundColor}]} onPress={() =>navigation.navigate('Search')}>
           <TouchableOpacity>
             <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
           </TouchableOpacity>
-          <Text style={[{paddingLeft: 5, color: colorStyle.searchBarTextColor}]}>
+          <Text style={[{color: colorStyle.searchBarTextColor, paddingLeft: 5}]}>
             Искать среди всех новостей
           </Text>
         </TouchableOpacity>
       </View>
 
-      <Text style={[localStyles.text]}>От редакции</Text>
+      <Text style={[stylesLocal.text]}>От редакции</Text>
      
-      <View style={localStyles.carouselContainer}>
-        <View style={{ flex: 1}}>
+      <View style={stylesLocal.carouselContainer}>
+        <View style={styles.flex}>
           <Carousel
             loop
             width={width}
@@ -80,7 +77,9 @@ export default function HomeScreenHeader({data, label}: {data: any, label: strin
           />
         </View>
       </View>
-      <Text style={[localStyles.text]}>Новости</Text>
+
+      <Text style={[stylesLocal.text]}>Новости</Text>
+
     </SafeAreaView>
   );
 }

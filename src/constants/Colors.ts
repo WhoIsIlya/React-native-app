@@ -27,6 +27,8 @@ export const Colors = {
     categoryBarInactiveColor: lighter,
     categoryBarActiveTextColor: black,
     categoryBarInactiveTextColor: grey,
+    bottomSheetModalBackgroundColor: light,
+    bottomSheetModalIndicatorColor: grey,
   },
   dark: {
     text: white,
@@ -44,5 +46,7 @@ export const Colors = {
     categoryBarInactiveColor: jetBlack,
     categoryBarActiveTextColor: white,
     categoryBarInactiveTextColor: lightGray,
+    bottomSheetModalBackgroundColor: darkGray,
+    bottomSheetModalIndicatorColor: lightGray,
   },
 };

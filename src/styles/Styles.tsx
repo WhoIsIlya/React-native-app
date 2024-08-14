@@ -1,43 +1,7 @@
-import type {PropsWithChildren} from 'react';
-import {
-  StyleSheet,
-  useColorScheme,
-  View,
-  Text,
-} from 'react-native';
+import { StyleSheet} from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-type SectionProps = PropsWithChildren<{
-  title: string;
-}>;
-
-function Section({children, title}: SectionProps): JSX.Element {
-  const isDarkMode = useColorScheme() === 'dark';
-  return (
-    <View style={styles.sectionContainer}>
-      <Text
-        style={[
-          styles.sectionTitle,
-          {
-            color: isDarkMode ? Colors.white : Colors.black,
-          },
-        ]}>
-        {title}
-      </Text>
-      <Text
-        style={[
-          styles.sectionDescription,
-          {
-            color: isDarkMode ? Colors.light : Colors.dark,
-          },
-        ]}>
-        {children}
-      </Text>
-    </View>
-  );
-}
-
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   flex: {
     flex: 1,
   },
@@ -52,31 +16,10 @@ const styles = StyleSheet.create({
     fontWeight: 200,
     color: '#ffffff',
   },
-  sectionContainer: {
-    marginTop: 24,
-    paddingHorizontal: 24,
-    justifyContent: 'space-around',
-  },
-  sectionTitle: {
-    fontSize: 24,
-    fontWeight: '600',
-  },
-  sectionDescription: {
-    marginTop: 8,
-    fontSize: 18,
-    fontWeight: '400',
-  },
   backgroundImage: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  backgroundGradientUpper: {
-    position: 'absolute',
-    left: 0,
-    right: 0,
-    top: 0,
-    height: 300,
   },
   backgroundGradientFullscreen: {
     position: "absolute",
@@ -100,11 +43,7 @@ const styles = StyleSheet.create({
     color: Colors.white,
     fontSize: 12,
     textAlign: 'center',
-  },
-  textWhiteMedium: {
-    color: Colors.white,
-    fontSize: 24,
-    textAlign: 'center',
+    paddingTop: 4,
   },
   textDiscoverScreenTitle:{
     fontWeight: 'bold',
@@ -151,25 +90,9 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingRight: 20,
   },
-  mainContainer: {
-    flex: 1,
-    paddingLeft: 20,
-    paddingRight: 20,
-    paddingTop: 10,
-  },
-  mainContainerHelper: {
-    borderRadius: 15,
-  },
   containerHelper: {
     borderRadius: 15,
     paddingBottom: 10,
-  },
-  scrollContainerr: {
-    padding: 20,
-  },
-  containerHelperGradient: {
-    padding: 20,
-    borderRadius: 15,
   },
   contentContainer: {
     paddingTop: 25,
@@ -178,7 +101,8 @@ const styles = StyleSheet.create({
   },
   cardInfo: {
     borderRadius: 15,
-    justifyContent: 'center',
+    minHeight: 160, 
+    justifyContent: 'flex-end',
   },
   cardStyle: {
     height: "100%",
@@ -190,7 +114,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     padding: 2,
     paddingLeft: 20,
-    // justifyContent: 'space-between',
     alignItems: 'center',
     borderRadius: 15,
     height: 40,
@@ -199,6 +122,95 @@ const styles = StyleSheet.create({
     paddingTop: 30,
     paddingBottom: 10,
   },
+  carouselLinearGradient: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "100%",
+    borderBottomLeftRadius: 14,
+    borderBottomRightRadius: 15,
+  },
+  carouselSourceTextStyle: {
+    textAlign: 'left',
+    fontSize: 8,
+    color: "#888888",
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    position: 'absolute',
+  },
+  carouselTitleTextStyle: {
+    textAlign: 'left',
+    fontSize: 25,
+    fontWeight: '500',
+    color: "#ffffff",
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    position: 'absolute',
+  },
+  categoriesCardsRootView: {
+    paddingLeft: 20,
+    paddingRight: 20,
+    flex: 1,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+  },
+  categoriesCardsTouchableOpacity: {
+    paddingRight: 5,
+    paddingBottom: 5,
+  },
+  flatListCardImage: {
+    flex: 1,
+    justifyContent: 'center',
+    borderRadius: 15,
+  },
+  flatListCardLinearGradient: {
+    position: "absolute",
+    bottom: 0,
+    width: "100%",
+    height: "100%",
+    borderRadius: 14,
+  },
+  flatListCardArticleText: {
+    textAlign: 'left',
+    fontSize: 15,
+    color: Colors.white,
+    paddingHorizontal: 20,
+    paddingBottom: 20,
+    position: 'absolute',
+  },
+  flatListCardSourceText: {
+    textAlign: 'left',
+    fontSize: 8,
+    color: "#888888",
+    paddingHorizontal: 20,
+    paddingBottom: 10,
+    position: 'absolute',
+  },
+  footerView: {
+    flex: 1,
+    paddingBottom: 10,
+  },
+  renderItemRootViewPadding: {
+    flex:1, 
+    padding: 20, 
+    paddingTop: 60
+  },
+  savedScreenView: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    paddingLeft: 20,
+    paddingRight: 20,
+    paddingTop: 45,
+  },
+  paddingTop5: {
+    paddingTop: 5,
+  },
+  paddingTop40: {
+    paddingTop: 40,
+  },
+  bottomSheetView: {
+    marginBottom:30,
+    marginHorizontal: 10,
+    maxWidth: 400,
+  },
 });
-
-export {styles, Section};

@@ -11,7 +11,6 @@ export default function SkeletonContent() {
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
     backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
-    contrastColor: isDarkMode? Colors.dark.tint : Colors.light.tint,
     textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
     searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
@@ -21,7 +20,7 @@ export default function SkeletonContent() {
 
   const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
-  const localStyles = StyleSheet.create({
+  const stylesLocal = StyleSheet.create({
     carouselContainer: {
       width: width,
       height: width/2,
@@ -32,6 +31,13 @@ export default function SkeletonContent() {
       fontWeight: 'bold',
       fontSize: 18,
       textAlign: 'center',
+    },
+    linearGradient: {
+      position: "absolute",
+      bottom: 0,
+      width: "100%",
+      height: "100%",
+      borderRadius: 14,
     }
   });
 
@@ -42,44 +48,33 @@ export default function SkeletonContent() {
           <TouchableOpacity>
             <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
           </TouchableOpacity>
-          <Text style={[{paddingLeft: 5, color: colorStyle.searchBarTextColor}]}>
+          <Text style={[{color: colorStyle.searchBarTextColor, paddingLeft: 5}]}>
             Искать среди всех новостей
           </Text>
         </TouchableOpacity>
       </View>
 
       <View style={[styles.containerSkeleton]}>
-        <Text style={[localStyles.text]}>От редакции</Text>
+        <Text style={[stylesLocal.text]}>От редакции</Text>
         
         <View style={[styles.containerHelper, {paddingTop: 10}]}>
           <View style={[styles.cardInfo, {backgroundColor: colorStyle.carouselCardBackgroundColor, minHeight: width/2*0.9,}]}>
             <LinearGradient
               colors={[isDarkMode ? 'transparent' : colorStyle.backgroundColor, isDarkMode ? colorStyle.backgroundColor : 'transparent']}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                height: "100%",
-                borderRadius: 14,
-              }}
+              style={stylesLocal.linearGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 1 }}
             />
           </View>
         </View>
         
-        <Text style={[localStyles.text]}>Новости</Text>
+        <Text style={[stylesLocal.text]}>Новости</Text>
+        
         <View style={[styles.containerHelper, {paddingTop: 10}]}>
           <View style={[styles.cardInfo, {backgroundColor: colorStyle.carouselCardBackgroundColor, minHeight: 160}]}>
             <LinearGradient
               colors={[isDarkMode ? 'transparent' : colorStyle.backgroundColor, isDarkMode ? colorStyle.backgroundColor : 'transparent']}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                height: "100%",
-                borderRadius: 14,
-              }}
+              style={stylesLocal.linearGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 1 }}
             />
@@ -89,13 +84,7 @@ export default function SkeletonContent() {
           <View style={[styles.cardInfo, {backgroundColor: colorStyle.carouselCardBackgroundColor, minHeight: 160}]}>
             <LinearGradient
               colors={[isDarkMode ? 'transparent' : colorStyle.backgroundColor, isDarkMode ? colorStyle.backgroundColor : 'transparent']}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                height: "100%",
-                borderRadius: 14,
-              }}
+              style={stylesLocal.linearGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 1 }}
             />
@@ -105,13 +94,7 @@ export default function SkeletonContent() {
           <View style={[styles.cardInfo, {backgroundColor: colorStyle.carouselCardBackgroundColor, minHeight: 160}]}>
             <LinearGradient
               colors={[isDarkMode ? 'transparent' : colorStyle.backgroundColor, isDarkMode ? colorStyle.backgroundColor : 'transparent']}
-              style={{
-                position: "absolute",
-                bottom: 0,
-                width: "100%",
-                height: "100%",
-                borderRadius: 14,
-              }}
+              style={stylesLocal.linearGradient}
               start={{ x: 0, y: 0 }}
               end={{ x: 0, y: 1 }}
             />

@@ -1,11 +1,10 @@
-import { View, Text, useColorScheme, StatusBar, SafeAreaView, TouchableOpacity, TextInput, FlatList } from "react-native";
+import { View, Text, useColorScheme, StatusBar, SafeAreaView, TouchableOpacity, FlatList, StyleSheet } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
 import { Ionicons } from "@expo/vector-icons";
 import { DataProps } from "../constants/DataInterface";
 import FlatListCard from "../components/FlatListCard";
-import { database } from "../utils/DatabaseProvider";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { ParamListBase, useIsFocused, useNavigation } from "@react-navigation/native";
 import { NativeStackNavigationProp } from "@react-navigation/native-stack";
@@ -57,6 +56,32 @@ export default function SavedScreen() {
     )
   }
 
+  const stylesLocal = StyleSheet.create ({
+    touchableOpacity: {
+      backgroundColor: colorStyle.searchBarBackgroundColor, 
+      borderRadius: 15,
+      height: 35,
+      paddingLeft: 15,
+      paddingRight: 15,
+    },
+    searchText: {
+      color: colorStyle.searchBarTextColor,
+      paddingLeft: 5,
+    },
+    text: {
+      color: colorStyle.textColor,
+      flex: 1,
+    },
+    touchableOpacityText: {
+      color: colorStyle.textColor,
+      flex: 1,
+      alignSelf: 'flex-end',
+      textAlignVertical:'center',
+      fontSize: 12,
+      textAlign: 'center',
+    }
+  })
+
   return (
     <SafeAreaView style={[styles.rootView, {backgroundColor: colorStyle.backgroundColor}]}>
       <StatusBar
@@ -70,29 +95,21 @@ export default function SavedScreen() {
             <TouchableOpacity>
               <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
             </TouchableOpacity>
-            <Text style={[{paddingLeft: 5, color: colorStyle.searchBarTextColor}]}>
+            <Text style={[stylesLocal.searchText]}>
               Искать среди всех новостей
             </Text>
           </TouchableOpacity>
         </View>
-        <View style={[{flexDirection: 'row', alignItems: 'center', paddingLeft: 20, paddingRight: 20, paddingTop: 45}]}>
-          <Text style={[styles.textDiscoverScreenTitle,{color: colorStyle.textColor, flex: 1}]}>Сохраненное</Text>
-          <View style={[{paddingTop: 5}]}>
+        <View style={[styles.savedScreenView]}>
+          <Text style={[styles.textDiscoverScreenTitle, stylesLocal.text]}>Сохраненное</Text>
+          <View style={[styles.paddingTop5]}>
             <TouchableOpacity 
-              style={[{
-                backgroundColor: colorStyle.searchBarBackgroundColor, 
-                borderRadius: 15,
-                height: 35,
-                paddingLeft: 15,
-                paddingRight: 15,
-              }]}
+              style={[stylesLocal.touchableOpacity]}
               onPress={_clearData}
             >
-              <Text style={[styles.textWhiteSmall,{color: colorStyle.textColor, flex: 1, alignSelf: 'flex-end', textAlignVertical:'center'}]}>Очистить</Text>
+              <Text style={[stylesLocal.touchableOpacityText]}>Очистить</Text>
             </TouchableOpacity>
           </View>
-
-          
         </View>
         <FlatList
             nestedScrollEnabled={true}
@@ -104,8 +121,7 @@ export default function SavedScreen() {
             horizontal={false}
             inverted={true}
           />
-      </View>
-      
+      </View>   
     </SafeAreaView>  
   );
 }

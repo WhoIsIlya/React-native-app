@@ -1,22 +1,19 @@
-import { View, Text, useColorScheme, StatusBar, TouchableOpacity, TextInput, SafeAreaView, FlatList, ActivityIndicator, Dimensions} from "react-native";
+import { View, useColorScheme, StatusBar, TouchableOpacity, TextInput, SafeAreaView, FlatList, ActivityIndicator } from "react-native";
 import React, { useCallback, useEffect, useRef, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
 import { Ionicons } from "@expo/vector-icons";
-import { ParamListBase, useIsFocused, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
+import { useIsFocused } from "@react-navigation/native";
 import { database } from "../utils/DatabaseProvider";
 import { debounce } from "lodash";
 import { DataProps } from "../constants/DataInterface";
 import FlatListCard from "../components/FlatListCard";
-import DiscoverScreenHeader from "../components/DiscoverScreenHeader";
 
 export default function SearchScreen() {
   const isFocused = useIsFocused();
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
     backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
-    contrastColor: isDarkMode? Colors.dark.tint : Colors.light.tint,
     textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
     searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
@@ -25,7 +22,6 @@ export default function SearchScreen() {
   const [searchData, setSearchData] = useState<any>();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [request, setRequest] = useState<any>();
-  const { height, width } = Dimensions.get("window");
   
   const handleSearch = async (search: string) => {
     if(search && search.length <= 2) {
@@ -67,8 +63,6 @@ export default function SearchScreen() {
 
   const handleTextDebounce = useCallback(debounce(handleSearch, 400), []);
 
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
-
   const inputRef = useRef<any>();
   const onFocusHandler = () => {
     inputRef.current && inputRef.current.focus();
@@ -87,13 +81,7 @@ export default function SearchScreen() {
   }
 
   return (
-    <SafeAreaView style={[
-      styles.rootView,
-      {
-        flexDirection: 'column',
-        backgroundColor: colorStyle.backgroundColor,
-      },
-    ]}>
+    <SafeAreaView style={[styles.rootView, {backgroundColor: colorStyle.backgroundColor}]}>
       <StatusBar
         barStyle={isDarkMode ? 'light-content' : 'dark-content'}
         backgroundColor={"transparent"}
@@ -116,7 +104,7 @@ export default function SearchScreen() {
           </View>             
         </View>
       </View> 
-      <View style={[{paddingTop: 40}]}>
+      <View style={[styles.paddingTop40]}>
         {
           isLoading ?  
             <ActivityIndicator

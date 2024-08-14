@@ -9,12 +9,11 @@ import { Ionicons } from "@expo/vector-icons";
 export default function ContentFooter({data}:{data:[DataProps]}) {
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
-    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
     touchableOpacityColor: isDarkMode ? Colors.dark.categoryBarInactiveColor : Colors.light.categoryBarInactiveColor,
     textColor: isDarkMode ? Colors.dark.icon : Colors.light.icon,
   };
 
-  const localStyles = StyleSheet.create({
+  const stylesLocal = StyleSheet.create({
     footer: {
       flex: 1,
       marginLeft: 40,
@@ -69,16 +68,16 @@ export default function ContentFooter({data}:{data:[DataProps]}) {
   };
   
   return (
-    <View style={[localStyles.footer]}>
+    <View style={[stylesLocal.footer]}>
       <TouchableOpacity 
-        style={[localStyles.touchableOpacity,{
+        style={[stylesLocal.touchableOpacity,{
           flexDirection: 'row'
         }]}
         onPress={_storeData}
         
       >
         <Ionicons name="save" color={colorStyle.textColor} size={25} style={[{flex: 1, paddingLeft: 10}]}/>
-        <Text style={[localStyles.text,{flex: 10}]}>Сохранить на устройстве</Text>
+        <Text style={[stylesLocal.text,{flex: 10}]}>Сохранить на устройстве</Text>
       </TouchableOpacity>
     </View>
   );

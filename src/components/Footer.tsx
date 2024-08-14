@@ -1,23 +1,17 @@
 import React from "react";
 import { useColorScheme, Text, View, StyleSheet } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import { Colors } from "../constants/Colors";
+import { styles } from "../styles/Styles";
 
 export default function Footer() {
   const isDarkMode = useColorScheme() === 'dark';
-  const backgroundStyle = {
-    backgroundColor: isDarkMode ? '#101010' : Colors.lighter,
-    secondColor: isDarkMode ? Colors.darker : Colors.white,
-    oppositeColor: isDarkMode ? Colors.white : Colors.black,
-    trueColor: isDarkMode ? Colors.black : Colors.white,
+  const colorStyle = {
+    textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
   };
 
   const localStyles = StyleSheet.create({
-    footer: {
-      flex: 1,
-      paddingBottom: 10,
-    },
     text: {
-      color: backgroundStyle.oppositeColor,
+      color: colorStyle.textColor,
       fontWeight: 'bold',
       fontSize: 18,
       textAlign: 'center',
@@ -25,7 +19,7 @@ export default function Footer() {
   });
   
   return (
-    <View style={[localStyles.footer]}>
+    <View style={[styles.footerView]}>
       <Text style={[localStyles.text]}>@app</Text>
     </View>
   );

@@ -1,11 +1,7 @@
-import { View, Text, useColorScheme, StatusBar, FlatList, ActivityIndicator, Dimensions, SafeAreaView } from "react-native";
+import { useColorScheme, StatusBar, FlatList, SafeAreaView } from "react-native";
 import React, { useEffect, useState } from "react";
 import { Colors } from "../constants/Colors";
 import { styles } from "../styles/Styles";
-import { Ionicons } from "@expo/vector-icons";
-import { ParamListBase, useNavigation } from "@react-navigation/native";
-import { NativeStackNavigationProp } from "@react-navigation/native-stack";
-import CategoriesCards from "../components/CategoriesCards";
 import { categories } from "../constants/Categories";
 import { database } from "../utils/DatabaseProvider";
 import FlatListCard from "../components/FlatListCard";
@@ -17,13 +13,7 @@ export default function DiscoverScreen() {
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
     backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
-    contrastColor: isDarkMode? Colors.dark.tint : Colors.light.tint,
-    textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
-    searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
-    searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
   };
-
-  const { height, width } = Dimensions.get("window");
 
   const [activeCategory, setActiveCategory] = useState(0);
   const [discoverNews, setDiscoverNews] = useState<any>();
@@ -35,14 +25,11 @@ export default function DiscoverScreen() {
       setIsLoaading(true);
       setDiscoverNews([]);
     }
-    
   }
 
   useEffect (() => {
     getDiscoverData(activeCategory)
   }, [activeCategory]);
-
-  const navigation = useNavigation<NativeStackNavigationProp<ParamListBase>>();
 
   const getDiscoverData = async (category: number) => {
     try {

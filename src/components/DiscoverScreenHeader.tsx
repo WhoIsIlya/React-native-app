@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, View, StyleSheet, Dimensions, useColorScheme, TouchableOpacity, StatusBar,SafeAreaView } from "react-native";
+import { Text, View, useColorScheme, TouchableOpacity,SafeAreaView } from "react-native";
 import { styles } from "../styles/Styles";
 import { Ionicons } from "@expo/vector-icons";
 import CategoriesCards from "./CategoriesCards";
@@ -10,8 +10,6 @@ import { NativeStackNavigationProp } from "@react-navigation/native-stack";
 export default function DiscoverScreenHeader ({categories, activeCategory, handleCategoryChange}:{categories: {id: number, title: string}[], activeCategory: number, handleCategoryChange: (index: number) => void}) {
   const isDarkMode = useColorScheme() === 'dark';
   const colorStyle = {
-    backgroundColor: isDarkMode ? Colors.dark.background : Colors.light.background,
-    contrastColor: isDarkMode? Colors.dark.tint : Colors.light.tint,
     textColor: isDarkMode ? Colors.dark.text : Colors.light.text,
     searchBarBackgroundColor: isDarkMode ? Colors.dark.searchBarBackgroundColor : Colors.light.searchBarBackgroundColor,
     searchBarTextColor: isDarkMode ? Colors.dark.searchBarTextColor : Colors.light.searchBarTextColor,
@@ -28,12 +26,12 @@ export default function DiscoverScreenHeader ({categories, activeCategory, handl
           <TouchableOpacity>
             <Ionicons name="search" color={colorStyle.searchBarTextColor} size={15}/>
           </TouchableOpacity>
-          <Text style={[{paddingLeft: 5, color: colorStyle.searchBarTextColor}]}>
+          <Text style={[{color: colorStyle.searchBarTextColor, paddingLeft: 5}]}>
             Искать среди всех новостей
           </Text>
         </TouchableOpacity>
 
-        <Text style={[styles.textDiscoverScreenTitle,{color: colorStyle.textColor}]}>Категории</Text> 
+        <Text style={[styles.textDiscoverScreenTitle,{color: colorStyle.textColor}]}>Категории</Text>
         
       </View>
 
@@ -43,7 +41,8 @@ export default function DiscoverScreenHeader ({categories, activeCategory, handl
           activeCategory={activeCategory}
           handleCategoryChange={handleCategoryChange}
         />
-      </View>          
+      </View>
+
     </SafeAreaView>
   )
 }
